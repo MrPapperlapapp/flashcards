@@ -1,0 +1,8 @@
+@mixin typography-params($fs, $fw, $lh) {
+  margin: 0;
+
+  font-size: $fs;
+  font-weight: $fw;
+  font-style: normal;
+  line-height: $lh;
+}
