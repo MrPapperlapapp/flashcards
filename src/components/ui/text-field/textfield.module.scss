@@ -11,6 +11,7 @@
     .input {
       all: unset;
 
+      width: 100%;
       padding: 6px 12px;
 
       font-size: 16px;
@@ -57,6 +58,14 @@
       &.search {
         padding-left: 40px;
       }
+
+      &.pass {
+        padding-left: 10px;
+      }
+
+      .fullWidth {
+        width: 100%;
+      }
     }
 
     .searchIcon {
@@ -64,6 +73,10 @@
       top: 50%;
       left: 10px;
       transform: translateY(-50%);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .closeIcon {
@@ -94,8 +107,4 @@
       }
     }
   }
-}
-
-.fullWidth {
-  width: 100%;
 }

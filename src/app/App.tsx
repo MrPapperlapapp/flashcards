@@ -12,7 +12,7 @@ function App() {
       onValueChange={val => setState(val)}
       placeholder={'Search...'}
       value={state}
-      variant={'search'}
+      variant={'password'}
     />
   )
 }

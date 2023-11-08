@@ -1,13 +1,10 @@
 import { ComponentPropsWithoutRef, FC } from 'react'
 
-type IconProps = {
-  className: string
-} & ComponentPropsWithoutRef<'svg'>
+type IconProps = ComponentPropsWithoutRef<'svg'>
 
-export const Search: FC<IconProps> = ({ className, ...rest }) => {
+export const Search: FC<IconProps> = ({ ...rest }) => {
   return (
     <svg
-      className={className}
       fill={'none'}
       height={20}
       viewBox={'0 0 24 24'}

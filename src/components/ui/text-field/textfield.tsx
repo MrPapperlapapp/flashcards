@@ -1,7 +1,7 @@
-import { ChangeEvent, ComponentPropsWithoutRef } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, useState } from 'react'
 
-import { Close } from '@/assets/icons/closeIcon'
-import { Search } from '@/assets/icons/searchIcon'
+import { LeftTextFieldIcon } from '@/components/ui/text-field/models/left-text-field-icon'
+import { RightTextFieldIcon } from '@/components/ui/text-field/models/right-text-field-icon'
 import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
 
@@ -17,14 +17,17 @@ export const TextField = ({
   variant,
   ...rest
 }: PropsType) => {
+  const [showPass, setShowPass] = useState(false)
+
   const classNames = {
-    input: clsx(s.input, variant === 'search' && s.search, fullWidth && s.fullWidth),
+    input: clsx(s.input, variant === 'search' && s.search, variant === 'password' && s.pass),
     root: clsx(s.root, className),
   }
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     onValueChange?.(e.currentTarget.value)
   }
+  const showPassHandler = () => setShowPass(p => !p)
 
   return (
     <div className={classNames.root}>
@@ -34,19 +37,21 @@ export const TextField = ({
         </Typography>
       )}
       <div className={s.text_field_wrapper}>
-        {variant === 'search' && <Search className={s.searchIcon} />}
+        <LeftTextFieldIcon className={s.searchIcon} type={variant} />
         <input
           className={classNames.input}
           onChange={onChangeHandler}
-          type={'text'}
+          type={(variant === 'search' && 'text') || showPass ? 'text' : 'password'}
           value={value}
           {...rest}
         />
-        {onClearValue && (
-          <button className={s.closeIcon} disabled={!value} onClick={onClearValue}>
-            <Close />
-          </button>
-        )}
+        <RightTextFieldIcon
+          className={s.closeIcon}
+          onClickClear={onClearValue}
+          onPassShow={showPassHandler}
+          showPass={showPass}
+          type={variant}
+        />
       </div>
     </div>
   )
