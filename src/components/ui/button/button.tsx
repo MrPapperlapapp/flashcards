@@ -10,12 +10,13 @@ export const Button = <T extends ElementType = 'button'>(props: PurePropsType<T>
     as: Component = 'button',
     children,
     className,
+    fullWidth,
     icon,
     variant = 'primary',
     ...rest
   } = props
 
-  const classNames = clsx(s[variant], className)
+  const classNames = clsx(s[variant], fullWidth && s.fullWidth, className)
 
   return (
     <Component className={classNames} {...rest}>
@@ -29,6 +30,7 @@ type PropsType<T extends ElementType> = {
   as?: T
   children: ReactNode
   className?: string
+  fullWidth?: boolean
   icon?: ReactNode
   variant?: 'icon' | 'link' | 'primary' | 'secondary' | 'tertiary'
 }
