@@ -7,12 +7,13 @@ function App() {
 
   return (
     <TextField
+      errorMessage={'This field is required'}
       label={'Search by name'}
       onClearValue={() => setState('')}
       onValueChange={val => setState(val)}
       placeholder={'Search...'}
+      type={'password'}
       value={state}
-      variant={'password'}
     />
   )
 }

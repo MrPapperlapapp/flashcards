@@ -8,20 +8,24 @@ import { clsx } from 'clsx'
 import s from './textfield.module.scss'
 export const TextField = ({
   className,
+  errorMessage,
   fullWidth = false,
   label,
   onClearValue,
   onValueChange,
   type,
   value,
-  variant,
   ...rest
-}: PropsType) => {
+}: PurePropsType) => {
   const [showPass, setShowPass] = useState(false)
 
   const classNames = {
-    input: clsx(s.input, variant === 'search' && s.search, variant === 'password' && s.pass),
+    error: clsx(s.error),
+    input: clsx(s.input, type === 'search' && s.search, type === 'password' && s.pass),
+    leftIcon: clsx(s.searchIcon),
+    rightIcon: clsx(s.closeIcon),
     root: clsx(s.root, className),
+    textFieldContainer: clsx(s.text_field_wrapper),
   }
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,31 +40,36 @@ export const TextField = ({
           {label}
         </Typography>
       )}
-      <div className={s.text_field_wrapper}>
-        <LeftTextFieldIcon className={s.searchIcon} type={variant} />
+      <div className={classNames.textFieldContainer}>
+        <LeftTextFieldIcon className={classNames.leftIcon} type={type} />
         <input
           className={classNames.input}
           onChange={onChangeHandler}
-          type={(variant === 'search' && 'text') || showPass ? 'text' : 'password'}
+          type={(type === 'search' && 'text') || showPass ? 'text' : 'password'}
           value={value}
           {...rest}
         />
         <RightTextFieldIcon
-          className={s.closeIcon}
+          className={classNames.rightIcon}
           onClickClear={onClearValue}
           onPassShow={showPassHandler}
           showPass={showPass}
-          type={variant}
+          type={type}
         />
       </div>
+      <Typography className={classNames.error} variant={'error'}>
+        {errorMessage && errorMessage}
+      </Typography>
     </div>
   )
 }
 
 type PropsType = {
+  errorMessage?: string
   fullWidth?: boolean
   label?: string
   onClearValue?: () => void
   onValueChange?: (val: string) => void
-  variant?: 'password' | 'search'
-} & ComponentPropsWithoutRef<'input'>
+  type?: 'password' | 'search'
+}
+type PurePropsType = PropsType & Omit<ComponentPropsWithoutRef<'input'>, keyof PropsType>

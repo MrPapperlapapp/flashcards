@@ -53,7 +53,7 @@
 }
 
 .error {
-  @include typography-params(var(--font-size-m), var(--font-weight-regular), var(--line-height-m));
+  @include typography-params(var(--font-size-s), var(--font-weight-regular), var(--line-height-m));
 
   color: var(--color-danger-500);
 }
