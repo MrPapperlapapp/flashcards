@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, FC } from 'react'
 
 type IconProps = ComponentPropsWithoutRef<'svg'>
 
-export const Search: FC<IconProps> = ({ ...rest }) => {
+export const SearchIcon: FC<IconProps> = ({ ...rest }) => {
   return (
     <svg
       fill={'none'}

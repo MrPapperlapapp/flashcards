@@ -1,20 +1,13 @@
-import { useState } from 'react'
-
-import { TextField } from '@/components/ui/text-field'
+import { Logout } from '@/assets/icons/log-out-icon.tsx'
+import { Button } from '@/components/ui/button/button'
 
 function App() {
-  const [state, setState] = useState('')
-
   return (
-    <TextField
-      errorMessage={'This field is required'}
-      label={'Search by name'}
-      onClearValue={() => setState('')}
-      onValueChange={val => setState(val)}
-      placeholder={'Search...'}
-      type={'password'}
-      value={state}
-    />
+    <div style={{ padding: '15px' }}>
+      <Button icon={<Logout />} variant={'link'}>
+        Button secondary
+      </Button>
+    </div>
   )
 }
 export default App

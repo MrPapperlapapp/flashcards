@@ -1,6 +1,6 @@
 import { Ref, SVGProps, forwardRef, memo } from 'react'
 
-const ClosedEye = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
+const ClosedEyeIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
     fill={'none'}
     height={20}
@@ -21,7 +21,7 @@ const ClosedEye = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
     />
   </svg>
 )
-const ForwardRef = forwardRef(ClosedEye)
+const ForwardRef = forwardRef(ClosedEyeIcon)
 const Memo = memo(ForwardRef)
 
-export { Memo as ClosedEye }
+export { Memo as ClosedEyeIcon }

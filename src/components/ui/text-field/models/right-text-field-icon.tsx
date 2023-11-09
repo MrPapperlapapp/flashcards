@@ -1,6 +1,6 @@
-import { ClosedEye } from '@/assets/icons/closeEyeIcon'
-import { Close } from '@/assets/icons/closeIcon'
-import { OpenedEye } from '@/assets/icons/openEyeIcon'
+import { CloseIcon } from '@/assets/icons/close-icon'
+import { ClosedEyeIcon } from '@/assets/icons/closed-eye-icon'
+import { OpenedEyeIcon } from '@/assets/icons/opened-eye-icon'
 
 export const RightTextFieldIcon = ({
   className,
@@ -13,14 +13,14 @@ export const RightTextFieldIcon = ({
     case 'password': {
       return (
         <button className={className} onClick={onPassShow}>
-          {showPass ? <OpenedEye /> : <ClosedEye />}
+          {showPass ? <OpenedEyeIcon /> : <ClosedEyeIcon />}
         </button>
       )
     }
     case 'search': {
       return (
         <button className={className} onClick={onClickClear}>
-          <Close />
+          <CloseIcon />
         </button>
       )
     }
