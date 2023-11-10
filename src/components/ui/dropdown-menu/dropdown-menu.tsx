@@ -1,5 +1,4 @@
-import { ChevronUpIcon } from '@/assets/icons/chevron-up-icon.tsx'
-import { LearnIcon } from '@/assets/icons/learn-icon.tsx'
+import { LearnIcon } from '@/assets/icons/learn-icon'
 import { Typography } from '@/components/ui/typography'
 import * as RadixDropdownMenu from '@radix-ui/react-dropdown-menu'
 

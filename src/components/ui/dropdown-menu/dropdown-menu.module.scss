@@ -15,22 +15,28 @@ button {
 
   .Items {
     > *:not(:last-child) {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--color-dark-100);
-    }
-
-    > *:last-child {
-      border-top: 12px;
-    }
-
-    .DropdownMenuItem {
-      user-select: none;
-
       display: flex;
       gap: 5px;
       align-items: center;
 
+      padding: 12px 0;
+
+      border-bottom: 1px solid var(--color-dark-100);
       outline: none;
+    }
+
+    > *:last-child {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+
+      padding-top: 12px;
+
+      outline: none;
+    }
+
+    .DropdownMenuItem {
+      user-select: none;
     }
   }
 }
