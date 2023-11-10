@@ -20,13 +20,15 @@ export const DropdownMenu = () => {
           <div className={s.Items}>
             <RadixDropdownMenu.Item className={s.DropdownMenuItem}>
               <LearnIcon />
-              <Typography variant={'body2'}>Learn</Typography>
+              <Typography variant={'caption'}>Learn</Typography>
             </RadixDropdownMenu.Item>
             <RadixDropdownMenu.Item className={s.DropdownMenuItem}>
-              New Window
+              <LearnIcon />
+              <Typography variant={'caption'}>Learn</Typography>
             </RadixDropdownMenu.Item>
             <RadixDropdownMenu.Item className={s.DropdownMenuItem}>
-              New Private Window
+              <LearnIcon />
+              <Typography variant={'caption'}>Learn</Typography>
             </RadixDropdownMenu.Item>
           </div>
         </RadixDropdownMenu.Content>

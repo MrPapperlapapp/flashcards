@@ -35,8 +35,16 @@ button {
       outline: none;
     }
 
+    > *:first-child {
+      padding-top: 0;
+    }
+
     .DropdownMenuItem {
-      user-select: none;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-dark-100);
+      }
     }
   }
 }
