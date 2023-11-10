@@ -6,7 +6,7 @@ button {
 .DropdownMenuContent {
   position: relative;
 
-  min-width: 220px;
+  max-width: var(--radix-dropdown-menu-content-available-width);
   padding: 12px;
 
   background-color: var(--color-dark-500);
@@ -14,25 +14,21 @@ button {
   border-radius: 4px;
 
   .Items {
-    & *:not(:last-child) {
+    > *:not(:last-child) {
       padding: 12px 0;
       border-bottom: 1px solid var(--color-dark-100);
     }
 
-    & *:last-child {
-      padding-top: 12px;
+    > *:last-child {
+      border-top: 12px;
     }
 
     .DropdownMenuItem {
       user-select: none;
 
-      position: relative;
-
       display: flex;
+      gap: 5px;
       align-items: center;
-
-      font-size: 13px;
-      line-height: 1;
 
       outline: none;
     }
