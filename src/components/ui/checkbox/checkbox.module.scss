@@ -1,0 +1,66 @@
+/* reset */
+button {
+  all: unset;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+
+  .CheckboxRoot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    &:focus-visible {
+      background: var(--color-light-900);
+    }
+
+    &:hover {
+      background: var(--color-dark-500);
+    }
+
+    &:active {
+      background: var(--color-dark-100);
+    }
+
+    &:disabled {
+      color: blue;
+      background: transparent;
+    }
+
+    .CheckboxIndicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 24px;
+      height: 24px;
+
+      color: #fff;
+
+      .icon_wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &[data-disabled] {
+        color: var(--color-light-700);
+      }
+    }
+  }
+
+  .label {
+    padding-left: 2px;
+
+    &:disabled {
+      color: var(--color-light-700);
+    }
+  }
+}
