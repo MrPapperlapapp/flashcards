@@ -30,6 +30,10 @@ export const DropdownMenu = () => {
               <LearnIcon />
               <Typography variant={'caption'}>Learn</Typography>
             </RadixDropdownMenu.Item>
+            <RadixDropdownMenu.Item className={s.DropdownMenuItem}>
+              <LearnIcon />
+              <Typography variant={'caption'}>Learn</Typography>
+            </RadixDropdownMenu.Item>
           </div>
         </RadixDropdownMenu.Content>
       </RadixDropdownMenu.Portal>
