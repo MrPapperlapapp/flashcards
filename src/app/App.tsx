@@ -1,12 +1,6 @@
-import { DropdownMenu } from '@/components/ui/dropdown-menu'
+import { Header } from '@/components/layout/header'
 
 function App() {
-  return (
-    <div style={{ padding: '150px' }}>
-      <div style={{ height: '400px', width: '200px' }}>
-        <DropdownMenu />
-      </div>
-    </div>
-  )
+  return <Header />
 }
 export default App
