@@ -41,10 +41,6 @@ button {
 
     .DropdownMenuItem {
       cursor: pointer;
-
-      &:hover {
-        color: var(--color-dark-100);
-      }
     }
   }
 }

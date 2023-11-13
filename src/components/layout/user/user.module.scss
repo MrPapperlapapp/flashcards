@@ -1,0 +1,29 @@
+.user {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  .name {
+    border-bottom: 1px dashed var(--color-light-100);
+  }
+
+  .trigger {
+    cursor: pointer;
+  }
+}
+
+.user_info {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    & > *:last-child {
+      color: var(--color-dark-100);
+    }
+  }
+}
