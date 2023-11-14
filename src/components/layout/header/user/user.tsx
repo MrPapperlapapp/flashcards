@@ -1,6 +1,6 @@
-import { LogOutIcon } from '@/assets/icons/log-out-icon'
-import { ProfileIcon } from '@/assets/icons/profile-icon'
-import { Avatar } from '@/components/ui/avatar/avatar'
+import { LogOutIcon } from '@/assets/icons/log-out-icon.tsx'
+import { ProfileIcon } from '@/assets/icons/profile-icon.tsx'
+import { Avatar } from '@/components/ui/avatar/avatar.tsx'
 import { DropDownItem, DropdownMenu } from '@/components/ui/dropdown-menu'
 import { Typography } from '@/components/ui/typography'
 

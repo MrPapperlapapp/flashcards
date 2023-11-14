@@ -1,0 +1,43 @@
+@mixin pagination-buttons {
+  all: unset;
+
+  cursor: pointer;
+
+  width: 24px;
+  height: 24px;
+
+  text-align: center;
+
+  border-radius: 3px;
+}
+
+.container {
+  display: flex;
+  gap: 12px;
+
+  .item {
+    @include pagination-buttons;
+
+    &:disabled {
+      cursor: initial;
+      background: none;
+    }
+
+    &:hover {
+      background: var(--color-dark-100);
+    }
+  }
+
+  .current {
+    color: var(--color-dark-900);
+    background: var(--color-light-100);
+  }
+
+  .nextPrevButtons {
+    @include pagination-buttons;
+
+    &:disabled {
+      color: var(--color-dark-100);
+    }
+  }
+}
