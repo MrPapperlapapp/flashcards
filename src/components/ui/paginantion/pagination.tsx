@@ -67,7 +67,7 @@ const usePagination = (
   const totalPages = Math.floor(totalCount / countPerPage)
   const DOTS = '...'
   const pages = (start: number, end: number) => {
-    const length = end - start
+    const length = end - start + 1
 
     return Array.from({ length }, (_, idx) => start + idx)
   }
@@ -84,17 +84,17 @@ const usePagination = (
     const shouldShowRigthSibling = rightSibling < totalPages - 2
 
     if (shouldShowLeftSibling && !shouldShowRigthSibling) {
-      const rigthRange = pages(currentPage, currentPage + 5)
+      const rigthRange = pages(totalPages - 4, totalPages)
 
       return [1, DOTS, ...rigthRange]
     }
     if (shouldShowRigthSibling && !shouldShowLeftSibling) {
-      const leftRange = pages(1, 6)
+      const leftRange = pages(1, 5)
 
       return [...leftRange, DOTS, totalPages]
     }
     if (shouldShowRigthSibling && shouldShowLeftSibling) {
-      const middleRange = pages(currentPage - 1, currentPage + 2)
+      const middleRange = pages(currentPage - 1, currentPage + 1)
 
       return [1, DOTS, ...middleRange, DOTS, totalPages]
     }
