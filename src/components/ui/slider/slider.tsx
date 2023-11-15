@@ -6,6 +6,7 @@ import s from './slider.module.scss'
 export const Slider = ({
   max = 100,
   min = 1,
+  minStepsBetweenThumbs = 1,
   onValueChange,
   slidersValue,
   step = 1,
@@ -19,6 +20,7 @@ export const Slider = ({
         className={s.root}
         max={max}
         min={min}
+        minStepsBetweenThumbs={minStepsBetweenThumbs}
         onValueChange={onValueChange}
         step={step}
         value={slidersValue}
@@ -39,6 +41,7 @@ export const Slider = ({
 type PropsType = {
   max?: number
   min?: number
+  minStepsBetweenThumbs?: number
   onValueChange: (slidersValue: [number, number]) => void
   slidersValue: [number, number]
   step?: number
