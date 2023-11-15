@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Header } from '@/components/layout/header/header'
-import { Slider } from '@/components/ui/slider/slider'
+import { Table } from '@/components/ui/table'
 
 function App() {
   const [page, setPage] = useState<[number, number]>([1, 33])
@@ -10,7 +10,7 @@ function App() {
     <div>
       <Header />
       <main style={{ paddingTop: '65px' }}>
-        <Slider onValueChange={slidersValue => setPage(slidersValue)} slidersValue={page} />
+        <Table />
       </main>
     </div>
   )
