@@ -1,0 +1,9 @@
+@import '@/styles/mixin';
+
+.main {
+  padding-top: 65px;
+
+  .container {
+    @include container;
+  }
+}

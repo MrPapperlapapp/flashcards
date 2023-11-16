@@ -1,7 +1,4 @@
-@mixin container {
-  max-width: 1080px;
-  padding: 0 15px;
-}
+@import '@/styles/mixin';
 
 .header {
   position: absolute;
@@ -13,6 +10,7 @@
   justify-content: center;
 
   width: calc(100% - var(--removed-body-scroll-bar-size, 0px));
+  min-width: 882px;
   height: 60px;
 
   background: var(--color-dark-500);
