@@ -30,7 +30,7 @@ type TabsType = {
   value: string
 }
 type TabsPropsType = {
-  children: ReactNode
+  children?: ReactNode
   defaultTab?: string
   onValueChange: (value: string) => void
   tabs: TabsType[]

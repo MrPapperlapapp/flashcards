@@ -1,58 +1,29 @@
 .table {
-  table-layout: fixed;
   border-spacing: 0;
   border-collapse: collapse;
 
   width: 100%;
-  min-width: 862px;
 
   border: 1px solid var(--color-dark-500);
   border-bottom: none;
 
-  tr {
-    display: flex;
-  }
-
   td,
   th {
-    display: flex;
-    flex: 0 0 auto;
-    align-items: center;
-
-    width: 90px;
-    padding: 0.5rem 1rem;
-
-    white-space: nowrap;
+    padding: 6px 24px;
   }
 
   td {
     border-bottom: 1px solid var(--color-dark-500);
   }
 
-  .thead,
-  tbody {
-    .tName {
-      flex: 1 1 30%;
-      min-width: 300px;
-    }
-
-    .tCard {
-      flex: 1 1 15%;
-      min-width: 76px;
-    }
-
-    .created {
-      flex: 1 1 15%;
-      min-width: 130px;
-    }
-
-    .createdBy {
-      flex: 1 1 30%;
-      min-width: 360px;
-    }
-
-    .tr_head {
-      background: var(--color-dark-500);
-    }
+  th {
+    text-align: left;
+    background: var(--color-dark-500);
   }
+}
+
+.empty_line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

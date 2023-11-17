@@ -57,9 +57,11 @@ export const TextField = ({
           type={type}
         />
       </div>
-      <Typography className={classNames.error} variant={'error'}>
-        {errorMessage && errorMessage}
-      </Typography>
+      {errorMessage && (
+        <Typography className={classNames.error} variant={'error'}>
+          {errorMessage}
+        </Typography>
+      )}
     </div>
   )
 }
