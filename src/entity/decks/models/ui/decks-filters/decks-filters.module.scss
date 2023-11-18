@@ -1,0 +1,16 @@
+.deck_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filters {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 36px 0;
+
+  .search {
+    width: 300px;
+  }
+}

@@ -1,29 +1,52 @@
-import { Button, Slider, Tabs, TextField, Typography } from '@/components'
+import { useMemo, useState } from 'react'
+
+import { useAppSelector } from '@/app/store'
 import { Table } from '@/components/ui/table'
+import { Sort, Thead } from '@/components/ui/table/thead/thead'
+import { useGetDecksQuery } from '@/entity/decks/models/api/decks.api.ts'
+import { UseDecksFilters } from '@/entity/decks/models/hooks/useDecksFilters'
+import { currentPageSelector } from '@/entity/decks/models/selectors/decks.selectors'
+import { DecksFilters } from '@/entity/decks/models/ui/decks-filters/decks-filters'
 
 import s from './decks.module.scss'
 
 export const Decks = () => {
+  const {
+    authorId,
+    name,
+    orderBy,
+    setAuthorIdHandler,
+    setOrderByHandler,
+    setSearchByNameHandler,
+    setSliderValueHandler,
+    slidersValue,
+  } = UseDecksFilters()
+
+  const [sort, setSort] = useState<Sort>(null)
+  const currentPage = useAppSelector(currentPageSelector)
+  const sortedString = useMemo(() => {
+    if (!sort) {
+      return ''
+    }
+
+    return `${sort.key}-${sort.direction}`
+  }, [sort])
+
+  const { data, isLoading } = useGetDecksQuery()
+
   return (
     <>
-      <div className={s.deck_header}>
-        <Typography variant={'large'}>Decks list</Typography>
-        <Button variant={'primary'}>Create Deck</Button>
-      </div>
-      <div className={s.filters}>
-        <TextField className={s.search} fullWidth type={'search'} />
-        <Tabs
-          onValueChange={() => {}}
-          tabs={[
-            { title: 'My Cards', value: 'id' },
-            { title: 'All Cards', value: '' },
-          ]}
-          value={''}
-        />
-        <Slider onValueChange={() => {}} slidersValue={[0, 100]} />
-        <Button variant={'secondary'}>Clear Filter</Button>
-      </div>
-      <Table columns={columns} />
+      <DecksFilters
+        authorId={authorId}
+        name={name}
+        setAuthorIdHandler={setAuthorIdHandler}
+        setSearchByNameHandler={setSearchByNameHandler}
+        setSliderValueHandler={setSliderValueHandler}
+        sliderValue={slidersValue}
+      />
+      <Table data={data?.items}>
+        <Thead columns={columns} onSort={sort => setSort(sort)} sort={sort} />
+      </Table>
     </>
   )
 }
@@ -31,6 +54,7 @@ export const Decks = () => {
 const columns = [
   {
     key: 'name',
+    sortable: true,
     title: 'Name',
   },
   {

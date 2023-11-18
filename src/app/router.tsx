@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { Layout } from '@/components/layout/layout'
-import Decks from '@/pages/decks'
+import { Decks } from '@/pages/decks'
 
 const publicRoutes: RouteObject[] = [
   {

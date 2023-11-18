@@ -19,6 +19,15 @@
   th {
     text-align: left;
     background: var(--color-dark-500);
+
+    > span {
+      display: flex;
+      align-items: center;
+    }
+
+    &.sortable {
+      cursor: pointer;
+    }
   }
 }
 
@@ -26,4 +35,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1rem;
+  height: 1rem;
 }
