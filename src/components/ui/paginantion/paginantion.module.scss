@@ -14,17 +14,25 @@
 .container {
   display: flex;
   gap: 12px;
+  align-items: center;
+  justify-content: center;
+
+  padding: 15px;
 
   .item {
     @include pagination-buttons;
+
+    &:hover {
+      background: var(--color-dark-100);
+    }
 
     &:disabled {
       cursor: initial;
       background: none;
     }
 
-    &:hover {
-      background: var(--color-dark-100);
+    &:focus-visible {
+      outline: 2px solid var(--color-info-700);
     }
   }
 
@@ -39,5 +47,12 @@
     &:disabled {
       color: var(--color-dark-100);
     }
+  }
+
+  .select_wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    white-space: nowrap;
   }
 }

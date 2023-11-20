@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { useAppSelector } from '@/app/store'
+import { useAppDispatch, useAppSelector } from '@/app/store'
+import { Pagination } from '@/components'
 import { Table } from '@/components/ui/table'
 import { Thead } from '@/components/ui/table/thead/thead'
 import {
@@ -13,11 +14,14 @@ import {
   currentPageSelector,
   itemsPerPageSelector,
 } from '@/entity/decks/models/selectors/decks.selectors'
+import { setCurrentPage } from '@/entity/decks/models/slice/decks.slice'
 import { DecksFilters } from '@/entity/decks/models/ui/decks-filters/decks-filters'
 
 import s from './decks.module.scss'
 
 export const Decks = () => {
+  const dispatch = useAppDispatch()
+
   const {
     authorId,
     name,
@@ -50,6 +54,8 @@ export const Decks = () => {
     orderBy: sortedString,
   })
 
+  const onClickChangeCurrentPageHandler = (page: number) => dispatch(setCurrentPage(page))
+
   return (
     <>
       <DecksFilters
@@ -64,6 +70,12 @@ export const Decks = () => {
       <Table data={decks?.items}>
         <Thead columns={columns} onSort={setOrderByHandler} sort={orderBy} />
       </Table>
+      <Pagination
+        countPerPage={itemsPerPage}
+        currentPage={currentPage}
+        onChangeCurrentPage={onClickChangeCurrentPageHandler}
+        totalCount={decks?.pagination?.totalItems || 1}
+      />
     </>
   )
 }

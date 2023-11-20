@@ -1,11 +1,11 @@
-import { useAppDispatch } from '@/app/store.ts'
+import { useAppDispatch } from '@/app/store'
 import { Button, Slider, Tabs, TabsType, TextField, Typography } from '@/components'
-import { useGetMeQuery } from '@/entity/auth/api/auth.api.ts'
+import { useGetMeQuery } from '@/entity/auth/api/auth.api'
 import {
   setAuthorId,
   setSearchByName,
   setSliderValue,
-} from '@/entity/decks/models/slice/decks.slice.ts'
+} from '@/entity/decks/models/slice/decks.slice'
 
 import s from './decks-filters.module.scss'
 
@@ -23,6 +23,7 @@ export const DecksFilters = ({
   const userId = data?.id || ''
 
   const dispatch = useAppDispatch()
+
   const tabs: TabsType[] = [
     { title: 'My cards', value: userId },
     { title: 'All cards', value: '' },

@@ -1,6 +1,10 @@
 import { useCallback, useMemo } from 'react'
 
+import { useAppDispatch, useAppSelector } from '@/app/store.ts'
+import { Select } from '@/components'
 import { Typography } from '@/components/ui/typography'
+import { itemsPerPageSelector } from '@/entity/decks/models/selectors/decks.selectors.ts'
+import { setItemsPerPage } from '@/entity/decks/models/slice/decks.slice.ts'
 import { clsx } from 'clsx'
 
 import s from './paginantion.module.scss'
@@ -11,6 +15,11 @@ export const Pagination = ({
   onChangeCurrentPage,
   totalCount,
 }: PropsType) => {
+  const disaptch = useAppDispatch()
+  const itemsPerPage = useAppSelector(itemsPerPageSelector)
+
+  const onClickChangeItemsPerPageHandler = (num: string) => disaptch(setItemsPerPage(+num))
+
   const {
     changeCurrentPageHandler,
     isFirstPage,
@@ -54,6 +63,15 @@ export const Pagination = ({
       >
         {'>'}
       </button>
+      <div className={s.select_wrapper}>
+        <Typography variant={'body2'}>Show</Typography>
+        <Select
+          onValueChange={onClickChangeItemsPerPageHandler}
+          options={options}
+          value={`${itemsPerPage}`}
+        />
+        <Typography variant={'body2'}>per page</Typography>
+      </div>
     </div>
   )
 }
@@ -119,6 +137,13 @@ const usePagination = (
     range,
   }
 }
+
+const options = [
+  { label: '10', value: '10' },
+  { label: '20', value: '20' },
+  { label: '50', value: '50' },
+  { label: '100', value: '100' },
+]
 
 type PropsType = {
   countPerPage: number
