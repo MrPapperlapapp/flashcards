@@ -1,15 +1,38 @@
-import { Button, Slider, Tabs, TextField, Typography } from '@/components'
+import { useAppDispatch } from '@/app/store.ts'
+import { Button, Slider, Tabs, TabsType, TextField, Typography } from '@/components'
+import { useGetMeQuery } from '@/entity/auth/api/auth.api.ts'
+import {
+  setAuthorId,
+  setSearchByName,
+  setSliderValue,
+} from '@/entity/decks/models/slice/decks.slice.ts'
 
 import s from './decks-filters.module.scss'
 
 export const DecksFilters = ({
   authorId,
+  maxCardsCount,
   name,
   setAuthorIdHandler,
   setSearchByNameHandler,
   setSliderValueHandler,
   sliderValue,
 }: PropsType) => {
+  const { data } = useGetMeQuery()
+
+  const userId = data?.id || ''
+
+  const dispatch = useAppDispatch()
+  const tabs: TabsType[] = [
+    { title: 'My cards', value: userId },
+    { title: 'All cards', value: '' },
+  ]
+  const onClickClearFilters = () => {
+    dispatch(setSearchByName(''))
+    dispatch(setSliderValue([0, maxCardsCount || 1]))
+    dispatch(setAuthorId(''))
+  }
+
   return (
     <>
       <div className={s.deck_header}>
@@ -28,18 +51,18 @@ export const DecksFilters = ({
         <Tabs
           label={'Show packs cards'}
           onValueChange={setAuthorIdHandler}
-          tabs={[
-            { title: 'My Cards', value: authorId },
-            { title: 'All Cards', value: '' },
-          ]}
-          value={''}
+          tabs={tabs}
+          value={authorId}
         />
         <Slider
           label={'Number of cards'}
+          max={maxCardsCount || 100}
           onValueChange={setSliderValueHandler}
-          slidersValue={sliderValue}
+          slidersValue={[sliderValue?.[0] || 0, sliderValue?.[1] || maxCardsCount || 1]}
         />
-        <Button variant={'secondary'}>Clear Filter</Button>
+        <Button onClick={onClickClearFilters} variant={'secondary'}>
+          Clear Filter
+        </Button>
       </div>
     </>
   )
@@ -47,6 +70,7 @@ export const DecksFilters = ({
 
 type PropsType = {
   authorId: string
+  maxCardsCount?: number
   name: string
   setAuthorIdHandler: (id: string) => void
   setSearchByNameHandler: (name: string) => void

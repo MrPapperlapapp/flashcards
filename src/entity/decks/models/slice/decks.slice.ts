@@ -1,16 +1,17 @@
-import { DecksResponse, OrderByDirection, OrderByField } from '@/entity/decks/models/api/decks.api'
+import { Sort } from '@/components/ui/table/thead/thead'
+import { DecksResponse } from '@/entity/decks/models/api/decks.api'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: InitialState = {
   filters: {
-    authorId: 'idd',
+    authorId: '',
     name: '',
     orderBy: undefined,
-    slidersValue: [0, 1],
+    slidersValue: undefined,
   },
   pagination: {
-    currentPage: 0,
-    itemsPerPage: 0,
+    currentPage: 1,
+    itemsPerPage: 10,
     totalItems: 0,
     totalPages: 0,
   },
@@ -28,7 +29,7 @@ const slice = createSlice({
     setItemsPerPage: (state, action: PayloadAction<number>) => {
       state.pagination.itemsPerPage = action.payload
     },
-    setOrderBy: (state, action: PayloadAction<`${OrderByField}-${OrderByDirection}`>) => {
+    setOrderBy: (state, action: PayloadAction<Sort>) => {
       state.filters.orderBy = action.payload
     },
     setSearchByName: (state, action: PayloadAction<string>) => {
@@ -54,7 +55,7 @@ type InitialState = {
   filters: {
     authorId: string
     name: string
-    orderBy?: `${OrderByField}-${OrderByDirection}`
-    slidersValue: [number, number]
+    orderBy?: Sort
+    slidersValue: [number, number] | undefined
   }
 } & Pick<DecksResponse, 'pagination'>

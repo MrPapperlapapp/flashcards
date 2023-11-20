@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { DeleteIcon } from '@/assets/icons/delete-icon'
 import { EditIcon } from '@/assets/icons/edit-icon'
 import { LearnIcon } from '@/assets/icons/learn-icon'
-import { Deck } from '@/entity/decks/models/api/decks.api.ts'
+import { Deck } from '@/entity/decks/models/api/decks.api'
 
 import s from './table.module.scss'
 

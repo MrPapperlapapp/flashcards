@@ -1,11 +1,18 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { useAppSelector } from '@/app/store'
 import { Table } from '@/components/ui/table'
-import { Sort, Thead } from '@/components/ui/table/thead/thead'
-import { useGetDecksQuery } from '@/entity/decks/models/api/decks.api.ts'
+import { Thead } from '@/components/ui/table/thead/thead'
+import {
+  OrderByDirection,
+  OrderByField,
+  useGetDecksQuery,
+} from '@/entity/decks/models/api/decks.api'
 import { UseDecksFilters } from '@/entity/decks/models/hooks/useDecksFilters'
-import { currentPageSelector } from '@/entity/decks/models/selectors/decks.selectors'
+import {
+  currentPageSelector,
+  itemsPerPageSelector,
+} from '@/entity/decks/models/selectors/decks.selectors'
 import { DecksFilters } from '@/entity/decks/models/ui/decks-filters/decks-filters'
 
 import s from './decks.module.scss'
@@ -22,30 +29,40 @@ export const Decks = () => {
     slidersValue,
   } = UseDecksFilters()
 
-  const [sort, setSort] = useState<Sort>(null)
   const currentPage = useAppSelector(currentPageSelector)
-  const sortedString = useMemo(() => {
-    if (!sort) {
+  const itemsPerPage = useAppSelector(itemsPerPageSelector)
+
+  const sortedString: `${OrderByField}-${OrderByDirection}` | string = useMemo(() => {
+    if (!orderBy) {
       return ''
     }
 
-    return `${sort.key}-${sort.direction}`
-  }, [sort])
+    return `${orderBy.key}-${orderBy.direction}`
+  }, [orderBy])
 
-  const { data, isLoading } = useGetDecksQuery()
+  const { data: decks } = useGetDecksQuery({
+    authorId,
+    currentPage,
+    itemsPerPage,
+    maxCardsCount: slidersValue?.[1] || undefined,
+    minCardsCount: slidersValue?.[0] || undefined,
+    name,
+    orderBy: sortedString,
+  })
 
   return (
     <>
       <DecksFilters
         authorId={authorId}
+        maxCardsCount={decks?.maxCardsCount}
         name={name}
         setAuthorIdHandler={setAuthorIdHandler}
         setSearchByNameHandler={setSearchByNameHandler}
         setSliderValueHandler={setSliderValueHandler}
         sliderValue={slidersValue}
       />
-      <Table data={data?.items}>
-        <Thead columns={columns} onSort={sort => setSort(sort)} sort={sort} />
+      <Table data={decks?.items}>
+        <Thead columns={columns} onSort={setOrderByHandler} sort={orderBy} />
       </Table>
     </>
   )

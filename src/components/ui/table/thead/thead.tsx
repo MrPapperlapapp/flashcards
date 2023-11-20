@@ -52,6 +52,7 @@ export const Thead = ({ columns, onSort, sort, ...rest }: PropsType) => {
             </Typography>
           </th>
         ))}
+        <th></th>
       </tr>
     </thead>
   )

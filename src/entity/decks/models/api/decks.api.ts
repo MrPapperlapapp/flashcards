@@ -47,8 +47,10 @@ export type OrderByField = 'cardsCount' | 'createdBy' | 'name' | 'updated'
 export type OrderByDirection = 'asc' | 'desc'
 export type DecksParams = {
   authorId?: string
+  currentPage: number
+  itemsPerPage: number
   maxCardsCount?: number
   minCardsCount?: number
   name?: string
-  orderBy?: `${OrderByField}-${OrderByDirection}`
+  orderBy?: `${OrderByField}-${OrderByDirection}` | string
 } | void

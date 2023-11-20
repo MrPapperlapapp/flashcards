@@ -27,7 +27,7 @@ export const TabContent = ({ children, value }: TabContentPropsType) => {
   return <RadixTabs.Content value={value}>{children}</RadixTabs.Content>
 }
 
-type TabsType = {
+export type TabsType = {
   disabled?: boolean
   title: string
   value: string

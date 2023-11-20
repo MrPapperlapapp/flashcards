@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/app/store'
-import { OrderByDirection, OrderByField } from '@/entity/decks/models/api/decks.api.ts'
+import { Sort } from '@/components/ui/table/thead/thead'
 import {
   authorIdSelector,
   orderBySelector,
@@ -23,8 +23,7 @@ export const UseDecksFilters = () => {
   const setSliderValueHandler = (value: [number, number]) => dispatch(setSliderValue(value))
   const setAuthorIdHandler = (id: string) => dispatch(setAuthorId(id))
   const setSearchByNameHandler = (name: string) => dispatch(setSearchByName(name))
-  const setOrderByHandler = (order: `${OrderByField}-${OrderByDirection}`) =>
-    dispatch(setOrderBy(order))
+  const setOrderByHandler = (sort: Sort) => dispatch(setOrderBy(sort))
 
   return {
     authorId,
