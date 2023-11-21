@@ -6,6 +6,7 @@ import {
   setSearchByName,
   setSliderValue,
 } from '@/entity/decks/models/slice/decks.slice'
+import { AddDeckModal } from '@/entity/decks/models/ui/decks-filters/add-deck-modal/add-deck-modal'
 
 import s from './decks-filters.module.scss'
 
@@ -38,7 +39,7 @@ export const DecksFilters = ({
     <>
       <div className={s.deck_header}>
         <Typography variant={'large'}>Decks list</Typography>
-        <Button variant={'primary'}>Create Deck</Button>
+        <AddDeckModal />
       </div>
       <div className={s.filters}>
         <TextField

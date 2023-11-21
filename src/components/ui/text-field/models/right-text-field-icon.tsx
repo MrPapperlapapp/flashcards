@@ -34,5 +34,5 @@ type PropsType = {
   onClickClear?: () => void
   onPassShow?: () => void
   showPass?: boolean
-  type?: 'password' | 'search'
+  type?: 'password' | 'search' | 'text'
 }

@@ -1,10 +1,10 @@
 import { useCallback, useMemo } from 'react'
 
-import { useAppDispatch, useAppSelector } from '@/app/store.ts'
+import { useAppDispatch, useAppSelector } from '@/app/store'
 import { Select } from '@/components'
 import { Typography } from '@/components/ui/typography'
-import { itemsPerPageSelector } from '@/entity/decks/models/selectors/decks.selectors.ts'
-import { setItemsPerPage } from '@/entity/decks/models/slice/decks.slice.ts'
+import { itemsPerPageSelector } from '@/entity/decks/models/selectors/decks.selectors'
+import { setItemsPerPage } from '@/entity/decks/models/slice/decks.slice'
 import { clsx } from 'clsx'
 
 import s from './paginantion.module.scss'

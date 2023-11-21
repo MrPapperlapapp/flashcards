@@ -1,0 +1,29 @@
+.content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 100%;
+  max-width: 542px;
+
+  .title {
+    padding: 24px 18px;
+    border-bottom: 1px solid var(--color-dark-500);
+  }
+
+  .description {
+    padding: 24px 18px;
+  }
+
+  .close {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    &:focus-visible {
+      color: var(--color-info-700);
+    }
+  }
+}

@@ -72,6 +72,6 @@ type PropsType = {
   label?: string
   onClearValue?: () => void
   onValueChange?: (val: string) => void
-  type?: 'password' | 'search'
+  type?: 'password' | 'search' | 'text'
 }
 type PurePropsType = PropsType & Omit<ComponentPropsWithoutRef<'input'>, keyof PropsType>

@@ -12,8 +12,6 @@ export const Slider = ({
   slidersValue,
   step = 1,
 }: PropsType) => {
-  console.log(slidersValue)
-
   return (
     <div className={s.container}>
       {label && <Typography variant={'body2'}>{label}</Typography>}

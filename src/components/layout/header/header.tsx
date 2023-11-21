@@ -2,12 +2,11 @@ import { LogoIcon } from '@/assets/icons/logo-icon'
 import { User } from '@/components/layout/header/user/user'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
+import { UserType } from '@/entity/auth/api/auth.api'
 
 import s from './header.module.scss'
 
-export const Header = () => {
-  const data = false
-
+export const Header = ({ data }: PropsType) => {
   return (
     <header className={s.header}>
       <div className={s.container}>
@@ -18,4 +17,8 @@ export const Header = () => {
       </div>
     </header>
   )
+}
+
+type PropsType = {
+  data?: UserType
 }

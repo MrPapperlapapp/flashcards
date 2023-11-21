@@ -1,21 +1,25 @@
-import { LogOutIcon } from '@/assets/icons/log-out-icon.tsx'
-import { ProfileIcon } from '@/assets/icons/profile-icon.tsx'
-import { Avatar } from '@/components/ui/avatar/avatar.tsx'
+import { LogOutIcon } from '@/assets/icons/log-out-icon'
+import { ProfileIcon } from '@/assets/icons/profile-icon'
+import { Avatar } from '@/components/ui/avatar/avatar'
 import { DropDownItem, DropdownMenu } from '@/components/ui/dropdown-menu'
 import { Typography } from '@/components/ui/typography'
+import { useGetMeQuery } from '@/entity/auth/api/auth.api'
 
 import s from './user.module.scss'
 
 export const User = () => {
+  const { data: user } = useGetMeQuery()
+  const userName = user?.name ?? 'UserName'
+
   return (
     <div className={s.user}>
       <Typography className={s.name} variant={'subtitle1'}>
-        Name
+        {userName}
       </Typography>
       <DropdownMenu
         trigger={
           <button className={s.trigger}>
-            <Avatar />
+            <Avatar avatar={user?.avatar} name={userName} />
           </button>
         }
       >

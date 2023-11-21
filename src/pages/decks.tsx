@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { Pagination } from '@/components'
+import { Loading } from '@/components/ui/loading/loading'
 import { Table } from '@/components/ui/table'
 import { Thead } from '@/components/ui/table/thead/thead'
 import {
@@ -16,8 +17,6 @@ import {
 } from '@/entity/decks/models/selectors/decks.selectors'
 import { setCurrentPage } from '@/entity/decks/models/slice/decks.slice'
 import { DecksFilters } from '@/entity/decks/models/ui/decks-filters/decks-filters'
-
-import s from './decks.module.scss'
 
 export const Decks = () => {
   const dispatch = useAppDispatch()
@@ -44,7 +43,7 @@ export const Decks = () => {
     return `${orderBy.key}-${orderBy.direction}`
   }, [orderBy])
 
-  const { data: decks } = useGetDecksQuery({
+  const { data: decks, isLoading } = useGetDecksQuery({
     authorId,
     currentPage,
     itemsPerPage,
@@ -55,6 +54,10 @@ export const Decks = () => {
   })
 
   const onClickChangeCurrentPageHandler = (page: number) => dispatch(setCurrentPage(page))
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <>
