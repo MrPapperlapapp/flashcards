@@ -24,7 +24,13 @@ export const User = () => {
         }
       >
         <DropDownItem>
-          <UserInfo />
+          <div className={s.user_info}>
+            <Avatar avatar={user?.avatar} name={userName} />
+            <div className={s.info}>
+              <Typography variant={'subtitle2'}>Name</Typography>
+              <Typography variant={'caption'}>j&johnson@gmail.com</Typography>
+            </div>
+          </div>
         </DropDownItem>
         <DropDownItem>
           <ProfileIcon />
@@ -35,18 +41,6 @@ export const User = () => {
           <Typography variant={'caption'}>Sign out</Typography>
         </DropDownItem>
       </DropdownMenu>
-    </div>
-  )
-}
-
-const UserInfo = () => {
-  return (
-    <div className={s.user_info}>
-      <Avatar />
-      <div className={s.info}>
-        <Typography variant={'subtitle2'}>Name</Typography>
-        <Typography variant={'caption'}>j&johnson@gmail.com</Typography>
-      </div>
     </div>
   )
 }

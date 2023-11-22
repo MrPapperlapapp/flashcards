@@ -5,7 +5,13 @@ import * as RadixCheckbox from '@radix-ui/react-checkbox'
 import { clsx } from 'clsx'
 
 import s from './checkbox.module.scss'
-export const Checkbox = ({ checked, className, disabled, label, onChangeChecked }: PropsType) => {
+export const Checkbox = ({
+  checked,
+  className,
+  disabled,
+  label,
+  onChangeChecked,
+}: CheckBoxType) => {
   const classNames = {
     container: clsx(s.container),
     icon_wrapper: clsx(s.icon_wrapper),
@@ -38,10 +44,10 @@ export const Checkbox = ({ checked, className, disabled, label, onChangeChecked 
   )
 }
 
-type PropsType = {
-  checked: boolean
+export type CheckBoxType = {
+  checked?: boolean
   className?: string
   disabled?: boolean
   label?: string
-  onChangeChecked: () => void
+  onChangeChecked?: (checked: boolean) => void
 }

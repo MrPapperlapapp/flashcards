@@ -16,5 +16,5 @@ export const LeftTextFieldIcon = ({ className, type = 'password' }: PropsType) =
 
 type PropsType = {
   className: string
-  type?: 'password' | 'search'
+  type?: 'password' | 'search' | 'text'
 }

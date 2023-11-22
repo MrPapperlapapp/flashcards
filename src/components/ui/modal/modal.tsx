@@ -1,22 +1,17 @@
 import { ReactNode } from 'react'
 
-import { Typography } from '@/components'
 import { Cards } from '@/components/ui/cards/cards'
 import * as Dialog from '@radix-ui/react-dialog'
 
 import s from './modal.module.scss'
-export const Modal = ({ children, close, title, trigger }: PropsType) => {
+export const Modal = ({ children, close, onOpen, open }: PropsType) => {
   return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
+    <Dialog.Root onOpenChange={onOpen} open={open}>
       <Dialog.Portal>
         <Dialog.Overlay />
         <Dialog.Content className={s.content}>
           <Cards as={'div'}>
-            <Dialog.Title className={s.title}>
-              <Typography variant={'h2'}>{title}</Typography>
-            </Dialog.Title>
-            <Dialog.Description className={s.description}>{children}</Dialog.Description>
+            {children}
             <Dialog.Close asChild className={s.close}>
               <button>{close}</button>
             </Dialog.Close>
@@ -30,6 +25,6 @@ export const Modal = ({ children, close, title, trigger }: PropsType) => {
 type PropsType = {
   children: ReactNode
   close?: ReactNode
-  title: string
-  trigger: ReactNode
+  onOpen: (open: boolean) => void
+  open?: boolean
 }

@@ -16,7 +16,7 @@ export const TextField = ({
   type,
   value,
   ...rest
-}: PurePropsType) => {
+}: TextFieldType) => {
   const [showPass, setShowPass] = useState(false)
 
   const classNames = {
@@ -45,7 +45,7 @@ export const TextField = ({
         <input
           className={classNames.input}
           onChange={onChangeHandler}
-          type={(type === 'search' && 'text') || showPass ? 'text' : 'password'}
+          type={(type === 'search' && 'text') || (showPass && 'password') || 'text'}
           value={value}
           {...rest}
         />
@@ -74,4 +74,4 @@ type PropsType = {
   onValueChange?: (val: string) => void
   type?: 'password' | 'search' | 'text'
 }
-type PurePropsType = PropsType & Omit<ComponentPropsWithoutRef<'input'>, keyof PropsType>
+export type TextFieldType = PropsType & Omit<ComponentPropsWithoutRef<'input'>, keyof PropsType>

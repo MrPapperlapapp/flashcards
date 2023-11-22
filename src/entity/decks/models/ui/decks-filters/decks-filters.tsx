@@ -1,12 +1,19 @@
+import { useState } from 'react'
+
 import { useAppDispatch } from '@/app/store'
+import { CloseIcon } from '@/assets/icons/close-icon'
 import { Button, Slider, Tabs, TabsType, TextField, Typography } from '@/components'
+import { Modal } from '@/components/ui/modal/modal'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
 import {
   setAuthorId,
   setSearchByName,
   setSliderValue,
 } from '@/entity/decks/models/slice/decks.slice'
-import { AddDeckModal } from '@/entity/decks/models/ui/decks-filters/add-deck-modal/add-deck-modal'
+import {
+  AddDeckForm,
+  addDeckFieldsType,
+} from '@/entity/decks/models/ui/decks-filters/add-deck-form'
 
 import s from './decks-filters.module.scss'
 
@@ -19,11 +26,18 @@ export const DecksFilters = ({
   setSliderValueHandler,
   sliderValue,
 }: PropsType) => {
+  const [openModal, setOpenModal] = useState(false)
+
   const { data } = useGetMeQuery()
 
   const userId = data?.id || ''
 
   const dispatch = useAppDispatch()
+
+  const onSubmit = (data: addDeckFieldsType) => {
+    console.log(data)
+    setOpenModal(false)
+  }
 
   const tabs: TabsType[] = [
     { title: 'My cards', value: userId },
@@ -37,9 +51,14 @@ export const DecksFilters = ({
 
   return (
     <>
+      <Modal close={<CloseIcon />} onOpen={open => setOpenModal(open)} open={openModal}>
+        <AddDeckForm onSubmit={onSubmit} />
+      </Modal>
       <div className={s.deck_header}>
         <Typography variant={'large'}>Decks list</Typography>
-        <AddDeckModal />
+        <Button onClick={() => setOpenModal(true)} variant={'primary'}>
+          Create Deck
+        </Button>
       </div>
       <div className={s.filters}>
         <TextField
