@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 
 import s from './button.module.scss'
 
-export const Button = <T extends ElementType = 'button'>(props: PurePropsType<T>) => {
+export const Button = <T extends ElementType = 'button'>(props: ButtonPropsType<T>) => {
   const {
     as: Component = 'button',
     children,
@@ -35,5 +35,5 @@ type PropsType<T extends ElementType> = {
   variant?: 'icon' | 'link' | 'primary' | 'secondary' | 'tertiary'
 }
 
-type PurePropsType<T extends ElementType = 'button'> = PropsType<T> &
+export type ButtonPropsType<T extends ElementType = 'button'> = PropsType<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof PropsType<T>>

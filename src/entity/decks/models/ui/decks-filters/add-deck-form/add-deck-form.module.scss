@@ -9,4 +9,29 @@
     align-items: center;
     justify-content: space-between;
   }
+
+  .file_input {
+    display: none;
+  }
+
+  .change_cover {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > img {
+      width: 500px;
+      height: 120px;
+    }
+  }
+
+  .error {
+    color: var(--color-danger-500);
+    text-align: center;
+  }
 }

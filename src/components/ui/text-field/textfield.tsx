@@ -45,7 +45,7 @@ export const TextField = ({
         <input
           className={classNames.input}
           onChange={onChangeHandler}
-          type={(type === 'search' && 'text') || (showPass && 'password') || 'text'}
+          type={(type === 'search' && 'text') || (showPass && 'password') || type || 'text'}
           value={value}
           {...rest}
         />
@@ -72,6 +72,6 @@ type PropsType = {
   label?: string
   onClearValue?: () => void
   onValueChange?: (val: string) => void
-  type?: 'password' | 'search' | 'text'
+  type?: 'file' | 'password' | 'search' | 'text'
 }
 export type TextFieldType = PropsType & Omit<ComponentPropsWithoutRef<'input'>, keyof PropsType>
