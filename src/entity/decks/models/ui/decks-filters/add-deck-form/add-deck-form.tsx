@@ -15,7 +15,7 @@ const addDeckSchema = z.object({
 })
 
 export type addDeckFieldsType = z.infer<typeof addDeckSchema>
-export const AddDeckForm = ({ onSubmit }: PropsType) => {
+export const AddDeckForm = ({ onClose, onSubmit }: PropsType) => {
   const { control, handleSubmit } = useForm<addDeckFieldsType>({
     defaultValues: {
       isPrivate: false,
@@ -44,7 +44,9 @@ export const AddDeckForm = ({ onSubmit }: PropsType) => {
         />
         <ControledCheckbox control={control} label={'is Private?'} name={'isPrivate'} />
         <div className={s.bottom}>
-          <Button variant={'secondary'}>Cancel</Button>
+          <Button onClick={onClose} variant={'secondary'}>
+            Cancel
+          </Button>
           <Button variant={'primary'}>Save</Button>
         </div>
       </div>
@@ -53,5 +55,6 @@ export const AddDeckForm = ({ onSubmit }: PropsType) => {
 }
 
 type PropsType = {
+  onClose: () => void
   onSubmit: (data: addDeckFieldsType) => void
 }

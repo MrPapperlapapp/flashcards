@@ -52,7 +52,7 @@ export const DecksFilters = ({
   return (
     <>
       <Modal close={<CloseIcon />} onOpen={open => setOpenModal(open)} open={openModal}>
-        <AddDeckForm onSubmit={onSubmit} />
+        <AddDeckForm onClose={() => setOpenModal(false)} onSubmit={onSubmit} />
       </Modal>
       <div className={s.deck_header}>
         <Typography variant={'large'}>Decks list</Typography>

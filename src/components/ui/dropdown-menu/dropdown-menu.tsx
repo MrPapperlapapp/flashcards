@@ -9,7 +9,7 @@ export const DropdownMenu = ({ children, trigger }: DropdownMenuPropsType) => {
     <RadixDropdownMenu.Root>
       <RadixDropdownMenu.Trigger asChild>{trigger}</RadixDropdownMenu.Trigger>
       <RadixDropdownMenu.Portal>
-        <RadixDropdownMenu.Content align={'end'} className={s.DropdownMenuContent} sideOffset={8}>
+        <RadixDropdownMenu.Content align={'end'} className={s.DropdownMenuContent} sideOffset={4}>
           <RadixDropdownMenu.Arrow asChild className={s.DropdownMenuArrow}>
             <i className={s.arrowUp} />
           </RadixDropdownMenu.Arrow>
