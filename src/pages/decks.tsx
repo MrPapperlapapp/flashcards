@@ -5,18 +5,15 @@ import { Pagination } from '@/components'
 import { Loading } from '@/components/ui/loading/loading'
 import { Table } from '@/components/ui/table'
 import { Thead } from '@/components/ui/table/thead/thead'
-import {
-  OrderByDirection,
-  OrderByField,
-  useGetDecksQuery,
-} from '@/entity/decks/models/api/decks.api'
+import { useGetDecksQuery } from '@/entity/decks/api/decks.api'
+import { OrderByDirection, OrderByField } from '@/entity/decks/api/decks.types'
 import { UseDecksFilters } from '@/entity/decks/models/hooks/useDecksFilters'
 import {
   currentPageSelector,
   itemsPerPageSelector,
 } from '@/entity/decks/models/selectors/decks.selectors'
 import { setCurrentPage } from '@/entity/decks/models/slice/decks.slice'
-import { DecksFilters } from '@/entity/decks/models/ui/decks-filters/decks-filters'
+import { DecksFilters } from '@/entity/decks/ui/decks-filters/decks-filters'
 
 export const Decks = () => {
   const dispatch = useAppDispatch()

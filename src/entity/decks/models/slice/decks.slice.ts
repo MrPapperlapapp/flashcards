@@ -1,5 +1,5 @@
 import { Sort } from '@/components/ui/table/thead/thead'
-import { DecksResponse } from '@/entity/decks/models/api/decks.api'
+import { DecksResponse } from '@/entity/decks/api/decks.types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: InitialState = {
@@ -28,6 +28,7 @@ const slice = createSlice({
     },
     setItemsPerPage: (state, action: PayloadAction<number>) => {
       state.pagination.itemsPerPage = action.payload
+      state.pagination.currentPage = initialState.pagination.currentPage
     },
     setOrderBy: (state, action: PayloadAction<Sort>) => {
       state.filters.orderBy = action.payload

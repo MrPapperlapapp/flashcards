@@ -5,11 +5,11 @@ import { Button, Typography } from '@/components'
 import { ControledCheckbox } from '@/components/ui/controled-ui/controled-checkbox/controled-checkbox'
 import { ControledFileuploader } from '@/components/ui/controled-ui/controled-fileuploader/controled-fileuploader'
 import { ControledTextfield } from '@/components/ui/controled-ui/controled-textfield/controled-textfield'
-import { Deck } from '@/entity/decks/models/api/decks.api'
+import { Deck } from '@/entity/decks/api/decks.types'
 import {
   PackFormType,
   useAddPackForm,
-} from '@/entity/decks/models/ui/decks-filters/add-deck-form/useAddPackForm'
+} from '@/entity/decks/ui/decks-filters/add-deck-form/useAddPackForm'
 
 import s from './add-deck-form.module.scss'
 
@@ -62,7 +62,6 @@ export const AddDeckForm = ({ defaultValues, onClose, onSubmit }: PropsType) => 
   return (
     <form onSubmit={handleSubmit(sendHandler)}>
       <div className={s.container}>
-        <Typography variant={'h2'}>Add new deck</Typography>
         <div className={s.cover}>
           <img alt={'img'} src={downloaded || cover} />
         </div>
@@ -99,7 +98,7 @@ export const AddDeckForm = ({ defaultValues, onClose, onSubmit }: PropsType) => 
 }
 
 type PropsType = {
-  defaultValues: DefValueType
+  defaultValues?: DefValueType
   onClose: () => void
   onSubmit: (data: FormData) => void
 }

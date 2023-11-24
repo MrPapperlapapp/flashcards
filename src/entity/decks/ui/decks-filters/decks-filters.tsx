@@ -5,15 +5,13 @@ import { CloseIcon } from '@/assets/icons/close-icon'
 import { Button, Slider, Tabs, TabsType, TextField, Typography } from '@/components'
 import { Modal } from '@/components/ui/modal/modal'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
+import { useCreateDecksMutation } from '@/entity/decks/api/decks.api'
 import {
   setAuthorId,
   setSearchByName,
   setSliderValue,
 } from '@/entity/decks/models/slice/decks.slice'
-import {
-  AddDeckForm,
-  addDeckFieldsType,
-} from '@/entity/decks/models/ui/decks-filters/add-deck-form'
+import { AddDeckForm } from '@/entity/decks/ui/decks-filters/add-deck-form'
 
 import s from './decks-filters.module.scss'
 
@@ -29,13 +27,13 @@ export const DecksFilters = ({
   const [openModal, setOpenModal] = useState(false)
 
   const { data } = useGetMeQuery()
-
+  const [createDeck] = useCreateDecksMutation()
   const userId = data?.id || ''
 
   const dispatch = useAppDispatch()
 
-  const onSubmit = (data: addDeckFieldsType) => {
-    console.log(data)
+  const onSubmit = (data: FormData) => {
+    createDeck(data)
     setOpenModal(false)
   }
 
@@ -51,7 +49,12 @@ export const DecksFilters = ({
 
   return (
     <>
-      <Modal close={<CloseIcon />} onOpen={open => setOpenModal(open)} open={openModal}>
+      <Modal
+        close={<CloseIcon />}
+        onOpen={open => setOpenModal(open)}
+        open={openModal}
+        title={'Create Deck'}
+      >
         <AddDeckForm onClose={() => setOpenModal(false)} onSubmit={onSubmit} />
       </Modal>
       <div className={s.deck_header}>

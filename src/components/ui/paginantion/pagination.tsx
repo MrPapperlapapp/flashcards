@@ -116,7 +116,7 @@ const usePagination = (
 
       return [1, DOTS, ...middleRange, DOTS, totalPages]
     }
-  }, [currentPage, totalPages, countPerPage])
+  }, [currentPage, totalPages])
 
   const isFirstPage = currentPage === 1
   const isLastPage = currentPage === totalPages
