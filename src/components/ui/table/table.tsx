@@ -10,12 +10,19 @@ import { DeleteDeckForm } from '@/entity/decks/ui/decks-filters/delete-deck-form
 import s from './table.module.scss'
 
 export const Table = ({ children, data }: PropsType) => {
+  const [currentDeck, setCurrentDeck] = useState<Deck | null>(null)
   const [isDelete, setIsDelete] = useState(false)
+  const deleteDeckHandler = (deck: Deck) => {
+    if (deck) {
+      setCurrentDeck(deck)
+      setIsDelete(true)
+    }
+  }
 
   return (
     <>
-      <Modal onOpen={() => {}} open={false} title={`Delete deck`}>
-        <DeleteDeckForm onSubmit={() => {}} packName={'Hallo'} />
+      <Modal onOpen={open => setIsDelete(open)} open={isDelete} title={`Delete deck`}>
+        <DeleteDeckForm onSubmit={() => {}} packName={currentDeck?.name || 'Deck name'} />
       </Modal>
       <table className={s.table}>
         {children}
@@ -29,7 +36,7 @@ export const Table = ({ children, data }: PropsType) => {
               <td>
                 <LearnIcon />
                 <EditIcon />
-                <DeleteIcon onClick={() => setIsDelete(true)} />
+                <DeleteIcon onClick={() => deleteDeckHandler(item)} />
               </td>
             </tr>
           ))}
