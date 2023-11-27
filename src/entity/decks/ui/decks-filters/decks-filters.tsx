@@ -1,11 +1,12 @@
 import { useState } from 'react'
 
-import { useAppDispatch } from '@/app/store'
+import { useAppDispatch, useAppSelector } from '@/app/store'
 import { CloseIcon } from '@/assets/icons/close-icon'
 import { Button, Slider, Tabs, TabsType, TextField, Typography } from '@/components'
 import { Modal } from '@/components/ui/modal/modal'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
 import { useCreateDecksMutation } from '@/entity/decks/api/decks.api'
+import { getMaxCardsCount } from '@/entity/decks/models/selectors/decks.selectors.ts'
 import {
   setAuthorId,
   setSearchByName,
@@ -32,6 +33,9 @@ export const DecksFilters = ({
 
   const dispatch = useAppDispatch()
 
+  // maxCardsCount && dispatch(setMaxCardsCount(maxCardsCount))
+  //
+  const cardsCount = useAppSelector(getMaxCardsCount)
   const onSubmit = (data: FormData) => {
     createDeck(data)
     setOpenModal(false)
@@ -80,7 +84,7 @@ export const DecksFilters = ({
         />
         <Slider
           label={'Number of cards'}
-          max={maxCardsCount || 100}
+          max={cardsCount}
           onValueChange={setSliderValueHandler}
           slidersValue={[sliderValue?.[0] || 0, sliderValue?.[1] || maxCardsCount || 1]}
         />
@@ -99,5 +103,5 @@ type PropsType = {
   setAuthorIdHandler: (id: string) => void
   setSearchByNameHandler: (name: string) => void
   setSliderValueHandler: (value: [number, number]) => void
-  sliderValue: [number, number]
+  sliderValue: [number, number] | undefined
 }

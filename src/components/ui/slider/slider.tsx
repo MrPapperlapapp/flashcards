@@ -5,7 +5,7 @@ import s from './slider.module.scss'
 
 export const Slider = ({
   label,
-  max = 100,
+  max,
   min = 1,
   minStepsBetweenThumbs = 1,
   onValueChange,

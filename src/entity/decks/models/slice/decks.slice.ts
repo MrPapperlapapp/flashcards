@@ -1,10 +1,12 @@
 import { Sort } from '@/components/ui/table/thead/thead'
+import { decksAPI } from '@/entity/decks/api/decks.api.ts'
 import { DecksResponse } from '@/entity/decks/api/decks.types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: InitialState = {
   filters: {
     authorId: '',
+    maxCardsCount: undefined,
     name: '',
     orderBy: undefined,
     slidersValue: undefined,
@@ -17,6 +19,11 @@ const initialState: InitialState = {
   },
 }
 const slice = createSlice({
+  extraReducers: builder => {
+    builder.addMatcher(decksAPI.endpoints.getDecks.matchFulfilled, (state, action) => {
+      state.filters.maxCardsCount = action.payload.maxCardsCount
+    })
+  },
   initialState,
   name: 'decks',
   reducers: {
@@ -29,6 +36,9 @@ const slice = createSlice({
     setItemsPerPage: (state, action: PayloadAction<number>) => {
       state.pagination.itemsPerPage = action.payload
       state.pagination.currentPage = initialState.pagination.currentPage
+    },
+    setMaxCardsCount: (state, action: PayloadAction<number>) => {
+      state.filters.maxCardsCount = action.payload
     },
     setOrderBy: (state, action: PayloadAction<Sort>) => {
       state.filters.orderBy = action.payload
@@ -47,6 +57,7 @@ export const {
   setAuthorId,
   setCurrentPage,
   setItemsPerPage,
+  setMaxCardsCount,
   setOrderBy,
   setSearchByName,
   setSliderValue,
@@ -55,6 +66,7 @@ export const {
 type InitialState = {
   filters: {
     authorId: string
+    maxCardsCount?: number
     name: string
     orderBy?: Sort
     slidersValue: [number, number] | undefined

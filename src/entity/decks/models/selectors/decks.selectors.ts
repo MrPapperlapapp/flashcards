@@ -7,4 +7,8 @@ export const itemsPerPageSelector = (state: RootState): number =>
 export const authorIdSelector = (state: RootState): string => state.decks.filters.authorId
 export const orderBySelector = (state: RootState): Sort | undefined => state.decks.filters.orderBy
 export const searchByNameSelector = (state: RootState): string => state.decks.filters.name
-export const tabsSelector = (state: RootState): [number, number] => state.decks.filters.slidersValue
+export const tabsSelector = (state: RootState): [number, number] | undefined =>
+  state.decks.filters.slidersValue
+
+export const getMaxCardsCount = (state: RootState): number | undefined =>
+  state.decks.filters.maxCardsCount

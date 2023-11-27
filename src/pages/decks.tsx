@@ -6,7 +6,6 @@ import { Loading } from '@/components/ui/loading/loading'
 import { Table } from '@/components/ui/table'
 import { Thead } from '@/components/ui/table/thead/thead'
 import { useGetDecksQuery } from '@/entity/decks/api/decks.api'
-import { OrderByDirection, OrderByField } from '@/entity/decks/api/decks.types'
 import { UseDecksFilters } from '@/entity/decks/models/hooks/useDecksFilters'
 import {
   currentPageSelector,
@@ -32,24 +31,23 @@ export const Decks = () => {
   const currentPage = useAppSelector(currentPageSelector)
   const itemsPerPage = useAppSelector(itemsPerPageSelector)
 
-  const sortedString: `${OrderByField}-${OrderByDirection}` | string = useMemo(() => {
+  const sortedString = useMemo(() => {
     if (!orderBy) {
-      return ''
+      return undefined
     }
 
     return `${orderBy.key}-${orderBy.direction}`
   }, [orderBy])
 
-  const { data: decks, isLoading } = useGetDecksQuery({
+  const { currentData: decks, isLoading } = useGetDecksQuery({
     authorId,
     currentPage,
     itemsPerPage,
-    maxCardsCount: slidersValue?.[1] || undefined,
-    minCardsCount: slidersValue?.[0] || undefined,
+    maxCardsCount: (slidersValue?.[1] && `${slidersValue[1]}`) || undefined,
+    minCardsCount: (slidersValue?.[0] && `${slidersValue[0]}`) || undefined,
     name,
     orderBy: sortedString,
   })
-
   const onClickChangeCurrentPageHandler = (page: number) => dispatch(setCurrentPage(page))
 
   if (isLoading) {

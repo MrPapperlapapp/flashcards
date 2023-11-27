@@ -1,0 +1,10 @@
+.icon {
+  all: unset;
+  cursor: pointer;
+  padding-left: 5px;
+
+  &:disabled {
+    cursor: initial;
+    color: var(--color-dark-500);
+  }
+}
