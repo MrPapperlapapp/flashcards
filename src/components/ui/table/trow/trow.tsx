@@ -1,12 +1,14 @@
 import { useState } from 'react'
 
+import { CloseIcon } from '@/assets/icons/close-icon'
 import { DeleteIcon } from '@/assets/icons/delete-icon'
 import { EditIcon } from '@/assets/icons/edit-icon'
 import { LearnIcon } from '@/assets/icons/learn-icon'
 import { Modal } from '@/components/ui/modal/modal'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
-import { useDeleteDeckMutation } from '@/entity/decks/api/decks.api'
+import { useDeleteDeckMutation, useUpdateDeckMutation } from '@/entity/decks/api/decks.api'
 import { Deck } from '@/entity/decks/api/decks.types'
+import { AddEditDeckForm } from '@/entity/decks/ui'
 import { DeleteDeckForm } from '@/entity/decks/ui/decks-filters/delete-deck-form/delete-deck-form'
 
 import s from './trow.module.scss'
@@ -14,7 +16,9 @@ import s from './trow.module.scss'
 export const Trow = ({ data }: PropsType) => {
   const { data: me } = useGetMeQuery()
   const [deleteDeck] = useDeleteDeckMutation()
+  const [updateDeck] = useUpdateDeckMutation()
   const [isDelete, setIsDelete] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
 
   if (!data) {
     return null
@@ -22,6 +26,15 @@ export const Trow = ({ data }: PropsType) => {
   const deleteDeckHandler = () => {
     setIsDelete(false)
     deleteDeck({ id: data?.id })
+  }
+  const updateDeckHandler = (formData: FormData) => {
+    setIsEdit(false)
+    const name = formData.get('name')?.toString()
+    const isPrivate = !!formData.get('isPrivate')?.toString()
+    const cover = formData.get('cover') as Blob
+
+    console.log(cover)
+    updateDeck({ cover, id: data?.id, isPrivate, name: name })
   }
 
   return (
@@ -31,6 +44,18 @@ export const Trow = ({ data }: PropsType) => {
           onClose={() => setIsDelete(false)}
           onSubmit={deleteDeckHandler}
           packName={data?.name || 'Deck name'}
+        />
+      </Modal>
+      <Modal
+        close={<CloseIcon />}
+        onOpen={open => setIsEdit(open)}
+        open={isEdit}
+        title={'Edit Deck'}
+      >
+        <AddEditDeckForm
+          defaultValues={data}
+          onClose={() => setIsEdit(false)}
+          onSubmit={updateDeckHandler}
         />
       </Modal>
       <tr className={s.tr_body} key={data.id}>
@@ -43,7 +68,7 @@ export const Trow = ({ data }: PropsType) => {
             <LearnIcon />
           </button>
           <button className={s.icon} disabled={data.author.id !== me?.id}>
-            <EditIcon />
+            <EditIcon onClick={() => setIsEdit(true)} />
           </button>
           <button className={s.icon} disabled={data.author.id !== me?.id}>
             <DeleteIcon onClick={() => setIsDelete(true)} />

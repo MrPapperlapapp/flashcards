@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
-import { Trow } from '@/components/ui/table/trow/trow'
-import { Deck } from '@/entity/decks/api/decks.types'
+import { Trow } from '@/components'
+import { Deck } from '@/entity/decks/api'
 
 import s from './table.module.scss'
 

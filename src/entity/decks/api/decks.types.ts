@@ -37,3 +37,6 @@ export type DecksParams = {
   name?: string
   orderBy?: `${OrderByField}-${OrderByDirection}` | string
 } | void
+
+export type DeleteDeckResponse = Omit<Deck, 'author'>
+export type UpdateDeckParams = Partial<Pick<Deck, 'isPrivate' | 'name'>> & { cover: Blob }

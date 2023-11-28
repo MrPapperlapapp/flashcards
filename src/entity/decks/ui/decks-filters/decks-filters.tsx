@@ -2,17 +2,16 @@ import { useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { CloseIcon } from '@/assets/icons/close-icon'
-import { Button, Slider, Tabs, TabsType, TextField, Typography } from '@/components'
-import { Modal } from '@/components/ui/modal/modal'
+import { Button, Modal, Slider, Tabs, TabsType, TextField, Typography } from '@/components'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
-import { useCreateDecksMutation } from '@/entity/decks/api/decks.api'
-import { getMaxCardsCount } from '@/entity/decks/models/selectors/decks.selectors.ts'
+import { useCreateDecksMutation } from '@/entity/decks/api'
 import {
+  getMaxCardsCount,
   setAuthorId,
   setSearchByName,
   setSliderValue,
-} from '@/entity/decks/models/slice/decks.slice'
-import { AddDeckForm } from '@/entity/decks/ui/decks-filters/add-deck-form'
+} from '@/entity/decks/models'
+import { AddEditDeckForm } from '@/entity/decks/ui'
 
 import s from './decks-filters.module.scss'
 
@@ -59,7 +58,7 @@ export const DecksFilters = ({
         open={openModal}
         title={'Create Deck'}
       >
-        <AddDeckForm onClose={() => setOpenModal(false)} onSubmit={onSubmit} />
+        <AddEditDeckForm onClose={() => setOpenModal(false)} onSubmit={onSubmit} />
       </Modal>
       <div className={s.deck_header}>
         <Typography variant={'large'}>Decks list</Typography>

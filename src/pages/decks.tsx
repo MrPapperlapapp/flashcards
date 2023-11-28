@@ -1,18 +1,15 @@
 import { useMemo } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
-import { Pagination } from '@/components'
-import { Loading } from '@/components/ui/loading/loading'
-import { Table } from '@/components/ui/table'
-import { Thead } from '@/components/ui/table/thead/thead'
-import { useGetDecksQuery } from '@/entity/decks/api/decks.api'
-import { UseDecksFilters } from '@/entity/decks/models/hooks/useDecksFilters'
+import { Loading, Pagination, Table, Thead } from '@/components'
+import { useGetDecksQuery } from '@/entity/decks/api'
 import {
+  UseDecksFilters,
   currentPageSelector,
   itemsPerPageSelector,
-} from '@/entity/decks/models/selectors/decks.selectors'
-import { setCurrentPage } from '@/entity/decks/models/slice/decks.slice'
-import { DecksFilters } from '@/entity/decks/ui/decks-filters/decks-filters'
+  setCurrentPage,
+} from '@/entity/decks/models'
+import { DecksFilters } from '@/entity/decks/ui'
 
 export const Decks = () => {
   const dispatch = useAppDispatch()

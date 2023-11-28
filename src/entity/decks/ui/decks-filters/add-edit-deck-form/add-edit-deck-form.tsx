@@ -9,11 +9,11 @@ import { Deck } from '@/entity/decks/api/decks.types'
 import {
   PackFormType,
   useAddPackForm,
-} from '@/entity/decks/ui/decks-filters/add-deck-form/useAddPackForm'
+} from '@/entity/decks/ui/decks-filters/add-edit-deck-form/useAddPackForm'
 
-import s from './add-deck-form.module.scss'
+import s from './add-edit-deck-form.module.scss'
 
-export const AddDeckForm = ({ defaultValues, onClose, onSubmit }: PropsType) => {
+export const AddEditDeckForm = ({ defaultValues, onClose, onSubmit }: PropsType) => {
   const [downloaded, setDownloaded] = useState<string>(defaultValues?.cover || '')
   const [coverError, setCoverError] = useState('')
 
@@ -79,6 +79,7 @@ export const AddDeckForm = ({ defaultValues, onClose, onSubmit }: PropsType) => 
           Change Cover
         </ControledFileuploader>
         <ControledTextfield
+          autoFocus={!!defaultValues?.name}
           control={control}
           label={'Deck name'}
           name={'name'}

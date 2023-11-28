@@ -1,5 +1,5 @@
 import { Sort } from '@/components/ui/table/thead/thead'
-import { decksAPI } from '@/entity/decks/api/decks.api.ts'
+import { decksAPI } from '@/entity/decks/api/decks.api'
 import { DecksResponse } from '@/entity/decks/api/decks.types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 

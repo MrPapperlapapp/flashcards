@@ -1,6 +1,12 @@
 import { baseApi } from '@/app/baseApi'
 import { RootState } from '@/app/store'
-import { Deck, DecksParams, DecksResponse } from '@/entity/decks/api/decks.types'
+import {
+  Deck,
+  DecksParams,
+  DecksResponse,
+  DeleteDeckResponse,
+  UpdateDeckParams,
+} from '@/entity/decks/api/decks.types'
 
 export const decksAPI = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -45,7 +51,7 @@ export const decksAPI = baseApi.injectEndpoints({
         url: `v1/decks`,
       }),
     }),
-    deleteDeck: builder.mutation<any, { id: string }>({
+    deleteDeck: builder.mutation<DeleteDeckResponse, { id: string }>({
       invalidatesTags: (_result, _errors, args) => [{ id: args.id, type: 'Decks' }],
       onQueryStarted: async ({ id }, { dispatch, getState, queryFulfilled }) => {
         const {
@@ -98,7 +104,73 @@ export const decksAPI = baseApi.injectEndpoints({
         url: `v1/decks`,
       }),
     }),
+    updateDeck: builder.mutation<Deck, UpdateDeckParams & { id: string }>({
+      invalidatesTags: (_result, _errors, args) => [{ id: args.id, type: 'Decks' }],
+      onQueryStarted: async (args, { dispatch, getState, queryFulfilled }) => {
+        const {
+          decks: {
+            filters: { authorId, name, orderBy, slidersValue },
+            pagination: { currentPage, itemsPerPage },
+          },
+        } = getState() as RootState
+
+        const result = dispatch(
+          decksAPI.util.updateQueryData(
+            'getDecks',
+            {
+              authorId: authorId,
+              currentPage: currentPage,
+              itemsPerPage: itemsPerPage,
+              maxCardsCount: (slidersValue?.[1] && `${slidersValue[1]}`) || undefined,
+              minCardsCount: (slidersValue?.[0] && `${slidersValue[0]}`) || undefined,
+              name: name,
+              orderBy: orderBy ? `${orderBy.key}-${orderBy.direction}` : undefined,
+            },
+            draft => {
+              const deck = draft?.items?.find(d => d.id === args.id)
+
+              if (deck) {
+                if (args.name) {
+                  deck.name = args.name
+                }
+                if (args.cover) {
+                  deck.cover = URL.createObjectURL(args.cover)
+                }
+                if (args.isPrivate) {
+                  deck.isPrivate = args.isPrivate
+                }
+              }
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch (e) {
+          result.undo()
+        }
+      },
+      query: ({ cover, id, isPrivate, name }) => {
+        const formData = new FormData()
+
+        cover && formData.append('cover', cover)
+        typeof isPrivate === 'boolean' && formData.append('isPrivate', `${isPrivate}`)
+        name && formData.append('name', name)
+
+        return {
+          body: formData,
+          formData,
+          method: 'PATCH',
+          url: `v1/decks/${id}`,
+        }
+      },
+    }),
   }),
 })
 
-export const { useCreateDecksMutation, useDeleteDeckMutation, useGetDecksQuery } = decksAPI
+export const {
+  useCreateDecksMutation,
+  useDeleteDeckMutation,
+  useGetDecksQuery,
+  useUpdateDeckMutation,
+} = decksAPI
