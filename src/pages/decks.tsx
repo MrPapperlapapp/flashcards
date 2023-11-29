@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
-import { Loading, Pagination, Table, Thead } from '@/components'
+import { Loading, Pagination, Thead } from '@/components'
 import { useGetDecksQuery } from '@/entity/decks/api'
 import {
   UseDecksFilters,
@@ -10,6 +10,7 @@ import {
   setCurrentPage,
 } from '@/entity/decks/models'
 import { DecksFilters } from '@/entity/decks/ui'
+import { DecksTable } from '@/entity/decks/ui/decks-table/decks-table'
 
 export const Decks = () => {
   const dispatch = useAppDispatch()
@@ -62,9 +63,9 @@ export const Decks = () => {
         setSliderValueHandler={setSliderValueHandler}
         sliderValue={slidersValue}
       />
-      <Table data={decks?.items}>
+      <DecksTable data={decks?.items}>
         <Thead columns={columns} onSort={setOrderByHandler} sort={orderBy} />
-      </Table>
+      </DecksTable>
       <Pagination
         countPerPage={itemsPerPage}
         currentPage={currentPage}

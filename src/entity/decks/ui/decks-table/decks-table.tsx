@@ -1,11 +1,11 @@
 import { ReactNode } from 'react'
 
-import { Trow } from '@/components'
 import { Deck } from '@/entity/decks/api'
+import { Trow } from '@/entity/decks/ui/decks-table/trow'
 
-import s from './table.module.scss'
+import s from './decks-table.module.scss'
 
-export const Table = ({ children, data }: PropsType) => {
+export const DecksTable = ({ children, data }: PropsType) => {
   return (
     <>
       <table className={s.table}>

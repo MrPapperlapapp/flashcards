@@ -5,7 +5,7 @@ import { ChevronUpIcon } from '@/assets/icons/chevron-up-icon'
 import { Typography } from '@/components'
 import { clsx } from 'clsx'
 
-import s from '@/components/ui/table/table.module.scss'
+import s from './thead.module.scss'
 
 export const Thead = ({ columns, onSort, sort, ...rest }: PropsType) => {
   const handleSort =

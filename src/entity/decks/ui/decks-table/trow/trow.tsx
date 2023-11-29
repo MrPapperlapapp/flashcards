@@ -1,19 +1,19 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { CloseIcon } from '@/assets/icons/close-icon'
 import { DeleteIcon } from '@/assets/icons/delete-icon'
 import { EditIcon } from '@/assets/icons/edit-icon'
 import { LearnIcon } from '@/assets/icons/learn-icon'
-import { Modal } from '@/components/ui/modal/modal'
+import { Modal } from '@/components'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
-import { useDeleteDeckMutation, useUpdateDeckMutation } from '@/entity/decks/api/decks.api'
-import { Deck } from '@/entity/decks/api/decks.types'
-import { AddEditDeckForm } from '@/entity/decks/ui'
-import { DeleteDeckForm } from '@/entity/decks/ui/decks-filters/delete-deck-form/delete-deck-form'
+import { Deck, useDeleteDeckMutation, useUpdateDeckMutation } from '@/entity/decks/api'
+import { AddEditDeckForm, DeleteDeckForm } from '@/entity/decks/ui'
 
 import s from './trow.module.scss'
 
 export const Trow = ({ data }: PropsType) => {
+  const navigate = useNavigate()
   const { data: me } = useGetMeQuery()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
@@ -33,7 +33,6 @@ export const Trow = ({ data }: PropsType) => {
     const isPrivate = !!formData.get('isPrivate')?.toString()
     const cover = formData.get('cover') as Blob
 
-    console.log(cover)
     updateDeck({ cover, id: data?.id, isPrivate, name: name })
   }
 
@@ -59,7 +58,7 @@ export const Trow = ({ data }: PropsType) => {
         />
       </Modal>
       <tr className={s.tr_body} key={data.id}>
-        <td>{data.name}</td>
+        <td onClick={() => navigate(`/${data.id}`)}>{data.name}</td>
         <td>{data.cardsCount}</td>
         <td>{data.updated}</td>
         <td>{data.author.name}</td>
