@@ -57,8 +57,10 @@ export const Trow = ({ data }: PropsType) => {
           onSubmit={updateDeckHandler}
         />
       </Modal>
-      <tr className={s.tr_body} key={data.id}>
-        <td onClick={() => navigate(`/${data.id}`)}>{data.name}</td>
+      <tr key={data.id}>
+        <td className={s.name} onClick={() => navigate(`/${data.id}`)}>
+          {data.name}
+        </td>
         <td>{data.cardsCount}</td>
         <td>{data.updated}</td>
         <td>{data.author.name}</td>

@@ -106,6 +106,8 @@
 
 .icon {
   @include buttons;
+
+  padding: 0;
 }
 
 .fullWidth {

@@ -8,3 +8,11 @@
     color: var(--color-dark-500);
   }
 }
+
+.name {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-accent-500);
+  }
+}

@@ -3,8 +3,8 @@
 
   cursor: pointer;
 
-  width: 24px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
 
   text-align: center;
 
@@ -39,6 +39,10 @@
   .current {
     color: var(--color-dark-900);
     background: var(--color-light-100);
+
+    &:hover {
+      background: var(--color-light-100);
+    }
   }
 
   .nextPrevButtons {

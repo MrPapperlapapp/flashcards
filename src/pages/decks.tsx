@@ -49,6 +49,8 @@ export const Decks = () => {
   const onClickChangeCurrentPageHandler = (page: number) => dispatch(setCurrentPage(page))
 
   if (isLoading) {
+    console.log('decks loading')
+
     return <Loading />
   }
 
