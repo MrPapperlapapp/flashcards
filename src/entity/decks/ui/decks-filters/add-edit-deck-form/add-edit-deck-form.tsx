@@ -79,7 +79,7 @@ export const AddEditDeckForm = ({ defaultValues, onClose, onSubmit }: PropsType)
           Change Cover
         </ControledFileuploader>
         <ControledTextfield
-          autoFocus={!!defaultValues?.name}
+          autoFocus
           control={control}
           label={'Deck name'}
           name={'name'}

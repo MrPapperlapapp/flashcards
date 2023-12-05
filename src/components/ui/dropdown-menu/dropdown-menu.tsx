@@ -9,7 +9,12 @@ export const DropdownMenu = ({ children, trigger }: DropdownMenuPropsType) => {
     <RadixDropdownMenu.Root>
       <RadixDropdownMenu.Trigger asChild>{trigger}</RadixDropdownMenu.Trigger>
       <RadixDropdownMenu.Portal>
-        <RadixDropdownMenu.Content align={'end'} className={s.DropdownMenuContent} sideOffset={4}>
+        <RadixDropdownMenu.Content
+          align={'end'}
+          className={s.DropdownMenuContent}
+          forceMount
+          sideOffset={4}
+        >
           <RadixDropdownMenu.Arrow asChild className={s.DropdownMenuArrow}>
             <i className={s.arrowUp} />
           </RadixDropdownMenu.Arrow>
@@ -20,8 +25,12 @@ export const DropdownMenu = ({ children, trigger }: DropdownMenuPropsType) => {
   )
 }
 
-export const DropDownItem = ({ children }: DropdownItemPropsType) => {
-  return <RadixDropdownMenu.Item className={s.DropdownMenuItem}>{children}</RadixDropdownMenu.Item>
+export const DropDownItem = ({ children, onClick }: DropdownItemPropsType) => {
+  return (
+    <RadixDropdownMenu.Item className={s.DropdownMenuItem} onClick={onClick}>
+      {children}
+    </RadixDropdownMenu.Item>
+  )
 }
 
 export type Options = {
@@ -35,4 +44,5 @@ type DropdownMenuPropsType = {
 }
 type DropdownItemPropsType = {
   children: ReactNode
+  onClick?: () => void
 }

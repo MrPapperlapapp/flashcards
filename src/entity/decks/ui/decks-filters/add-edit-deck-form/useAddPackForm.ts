@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+
 export const packSchema = z.object({
   cover: z
     .instanceof(File)
@@ -17,10 +18,10 @@ export const packSchema = z.object({
 
 export type PackFormType = z.infer<typeof packSchema>
 export const useAddPackForm = (props: PackFormType) => {
-  const { control, getFieldState, handleSubmit, resetField, trigger, watch } = useForm({
+  const { control, getFieldState, handleSubmit, resetField, setFocus, trigger, watch } = useForm({
     defaultValues: props,
     resolver: zodResolver(packSchema),
   })
 
-  return { control, getFieldState, handleSubmit, resetField, trigger, watch }
+  return { control, getFieldState, handleSubmit, resetField, setFocus, trigger, watch }
 }

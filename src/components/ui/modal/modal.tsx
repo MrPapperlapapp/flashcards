@@ -5,13 +5,18 @@ import { Cards } from '@/components/ui/cards/cards'
 import * as Dialog from '@radix-ui/react-dialog'
 
 import s from './modal.module.scss'
+
 export const Modal = ({ children, close, onOpen, open, title, trigger }: PropsType) => {
   return (
     <Dialog.Root onOpenChange={onOpen} open={open}>
       <Dialog.Portal>
         <Dialog.Overlay />
         <Dialog.Trigger>{trigger}</Dialog.Trigger>
-        <Dialog.Content className={s.content}>
+        <Dialog.Content
+          className={s.content}
+          forceMount
+          onOpenAutoFocus={event => event.preventDefault()}
+        >
           <Cards as={'div'}>
             <Typography className={s.title} variant={'h2'}>
               {title}

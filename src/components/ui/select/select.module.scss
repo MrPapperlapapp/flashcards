@@ -3,13 +3,18 @@ button {
   all: unset;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .SelectTrigger {
   display: inline-flex;
   gap: 5px;
   align-items: center;
   justify-content: space-between;
 
-  width: 100%;
+  width: var(--radix-select-trigger-width);
   height: 35px;
   padding: 0 15px;
 

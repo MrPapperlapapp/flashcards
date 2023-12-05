@@ -8,43 +8,48 @@ import { clsx } from 'clsx'
 
 import s from './select.module.scss'
 
-export const Select = ({ disabled, onValueChange, options, value }: PropsType) => {
+export const Select = ({ disabled, label, onValueChange, options, value }: PropsType) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <RadixSelect.Root
-      disabled={disabled}
-      onOpenChange={() => setIsOpen(p => !p)}
-      onValueChange={onValueChange}
-      open={isOpen}
-      value={value}
-    >
-      <RadixSelect.Trigger aria-label={'Food'} className={s.SelectTrigger} value={value}>
-        <Typography variant={'body1'}>
-          <RadixSelect.Value />
-        </Typography>
-        <RadixSelect.Icon>{isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}</RadixSelect.Icon>
-      </RadixSelect.Trigger>
-      <RadixSelect.Portal>
-        <RadixSelect.Content className={s.SelectContent} position={'popper'}>
-          <RadixSelect.ScrollUpButton className={s.SelectScrollButton}>
-            <ChevronUpIcon />
-          </RadixSelect.ScrollUpButton>
-          <RadixSelect.Viewport className={s.SelectViewport}>
-            <RadixSelect.Group>
-              {options?.map((o, idx) => (
-                <SelectItem key={idx} value={o.value}>
-                  {o.label}
-                </SelectItem>
-              ))}
-            </RadixSelect.Group>
-          </RadixSelect.Viewport>
-          <RadixSelect.ScrollDownButton className={s.SelectScrollButton}>
-            <ChevronDownIcon />
-          </RadixSelect.ScrollDownButton>
-        </RadixSelect.Content>
-      </RadixSelect.Portal>
-    </RadixSelect.Root>
+    <div className={s.container}>
+      <Typography as={'label'} variant={'body2'}>
+        {label && label}
+      </Typography>
+      <RadixSelect.Root
+        disabled={disabled}
+        onOpenChange={() => setIsOpen(p => !p)}
+        onValueChange={onValueChange}
+        open={isOpen}
+        value={value}
+      >
+        <RadixSelect.Trigger aria-label={'Food'} className={s.SelectTrigger} value={value}>
+          <Typography variant={'body1'}>
+            <RadixSelect.Value />
+          </Typography>
+          <RadixSelect.Icon>{isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}</RadixSelect.Icon>
+        </RadixSelect.Trigger>
+        <RadixSelect.Portal>
+          <RadixSelect.Content className={s.SelectContent} position={'popper'}>
+            <RadixSelect.ScrollUpButton className={s.SelectScrollButton}>
+              <ChevronUpIcon />
+            </RadixSelect.ScrollUpButton>
+            <RadixSelect.Viewport className={s.SelectViewport}>
+              <RadixSelect.Group>
+                {options?.map((o, idx) => (
+                  <SelectItem key={idx} value={o.value}>
+                    {o.label}
+                  </SelectItem>
+                ))}
+              </RadixSelect.Group>
+            </RadixSelect.Viewport>
+            <RadixSelect.ScrollDownButton className={s.SelectScrollButton}>
+              <ChevronDownIcon />
+            </RadixSelect.ScrollDownButton>
+          </RadixSelect.Content>
+        </RadixSelect.Portal>
+      </RadixSelect.Root>
+    </div>
   )
 }
 
@@ -70,6 +75,7 @@ const SelectItem = forwardRef<
 
 type PropsType = {
   disabled?: boolean
+  label?: string
   onValueChange: (value: string) => void
   options: Options[]
   value: string
