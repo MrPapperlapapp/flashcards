@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 import cover from '@/assets/icons/no-cover.svg'
-import { Select, Typography } from '@/components'
+import { Button, Select, Typography } from '@/components'
 import { ControledFileuploader } from '@/components/ui/controled-ui/controled-fileuploader/controled-fileuploader'
 import { ControledTextfield } from '@/components/ui/controled-ui/controled-textfield/controled-textfield'
-import { Cards } from '@/entity/deck/api/deck.types'
+import { Cards, EditCardsParams } from '@/entity/deck/api/deck.types'
 import {
   CardFormType,
   UseAddEditCardForm,
@@ -12,20 +12,18 @@ import {
 
 import s from './add-edit-card-form.module.scss'
 
-export const AddEditCardForm = ({ defaultValue }: PropsType) => {
+export const AddEditCardForm = ({ defaultValue, onSubmit }: PropsType) => {
   const [selectVal, setSelectVal] = useState('text')
   const [answerImgError, setAnswerImgError] = useState<string | undefined>(undefined)
   const [questionImgError, setQuestionImgError] = useState<string | undefined>(undefined)
-  const [answerImg, setAnswerImg] = useState<string>('')
-  const [questionImg, setQuestionImg] = useState<string>('')
+  const [answerImg, setAnswerImg] = useState<string | undefined>(defaultValue?.answerImg)
+  const [questionImg, setQuestionImg] = useState<string | undefined>(defaultValue?.questionImg)
   const values: CardFormType = {
     answer: defaultValue?.answer || '',
     question: defaultValue?.question || '',
   }
-  const { control, getFieldState, resetField, trigger, watch } = UseAddEditCardForm(values)
-
-  const answerImgIsDirty = getFieldState('answerImg').isDirty
-  const questionImgIsDirty = getFieldState('questionImg').isDirty
+  const { control, getFieldState, handleSubmit, resetField, trigger, watch } =
+    UseAddEditCardForm(values)
 
   const extraActionsAnswerImg = async () => {
     const success = await trigger('answerImg')
@@ -71,9 +69,14 @@ export const AddEditCardForm = ({ defaultValue }: PropsType) => {
       }
     }
   }
+  const submitHandler = (data: DataValue) => {
+    const { answer, answerImg, question, questionImg } = data
+
+    onSubmit({ answer, answerImg, question, questionImg })
+  }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(submitHandler)}>
       <div className={s.container}>
         <div className={s.select_wrapper}>
           <Select
@@ -134,6 +137,12 @@ export const AddEditCardForm = ({ defaultValue }: PropsType) => {
             </div>
           </>
         )}
+        <div className={s.btn_group}>
+          <Button type={'button'} variant={'secondary'}>
+            Cancel
+          </Button>
+          <Button variant={'primary'}>Add Card</Button>
+        </div>
       </div>
     </form>
   )
@@ -150,7 +159,9 @@ const OPTIONS = [
   },
 ]
 
-type defaultValue = Pick<Cards, 'answer' | 'answerImg' | 'question' | 'questionImg'>
+type DefaultValue = Pick<Cards, 'answer' | 'answerImg' | 'question' | 'questionImg'>
+export type DataValue = Omit<EditCardsParams, 'deckId' | 'id'>
 type PropsType = {
-  defaultValue?: defaultValue
+  defaultValue?: DefaultValue
+  onSubmit: (data: DataValue) => void
 }

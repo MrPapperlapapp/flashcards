@@ -19,3 +19,6 @@ export type Cards = {
 export type CardsResponse = {
   items: Cards[]
 } & Pagination
+
+export type EditCardsParams = Pick<Cards, 'deckId' | 'id'> &
+  Partial<Pick<Cards, 'answer' | 'question'>> & { answerImg?: Blob; questionImg?: Blob }

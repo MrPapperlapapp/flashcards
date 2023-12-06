@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   padding: 15px;
 
   .select_wrapper {
@@ -35,5 +35,11 @@
       color: var(--color-danger-500);
       text-align: center;
     }
+  }
+
+  .btn_group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }
