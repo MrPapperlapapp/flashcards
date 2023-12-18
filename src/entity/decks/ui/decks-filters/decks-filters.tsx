@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { CloseIcon } from '@/assets/icons/close-icon'
@@ -30,6 +31,8 @@ export const DecksFilters = ({
   const [createDeck] = useCreateDecksMutation()
   const userId = data?.id || ''
 
+  const { t } = useTranslation('decks')
+
   const dispatch = useAppDispatch()
 
   // maxCardsCount && dispatch(setMaxCardsCount(maxCardsCount))
@@ -41,8 +44,8 @@ export const DecksFilters = ({
   }
 
   const tabs: TabsType[] = [
-    { title: 'My cards', value: userId },
-    { title: 'All cards', value: '' },
+    { title: t('My cards'), value: userId },
+    { title: t('All cards'), value: '' },
   ]
   const onClickClearFilters = () => {
     dispatch(setSearchByName(''))
@@ -63,7 +66,7 @@ export const DecksFilters = ({
       <div className={s.deck_header}>
         <Typography variant={'large'}>Decks list</Typography>
         <Button onClick={() => setOpenModal(true)} variant={'primary'}>
-          Create Deck
+          {t('Create Deck')}
         </Button>
       </div>
       <div className={s.filters}>
@@ -76,19 +79,19 @@ export const DecksFilters = ({
           value={name}
         />
         <Tabs
-          label={'Show packs cards'}
+          label={t('Show packs cards')}
           onValueChange={setAuthorIdHandler}
           tabs={tabs}
           value={authorId}
         />
         <Slider
-          label={'Number of cards'}
+          label={t('Number of cards')}
           max={cardsCount}
           onValueChange={setSliderValueHandler}
           slidersValue={[sliderValue?.[0] || 0, sliderValue?.[1] || maxCardsCount || 1]}
         />
         <Button onClick={onClickClearFilters} variant={'secondary'}>
-          Clear Filter
+          {t('Clear Filter')}
         </Button>
       </div>
     </>

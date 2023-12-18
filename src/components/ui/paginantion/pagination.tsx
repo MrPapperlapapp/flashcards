@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { Select } from '@/components'
@@ -17,7 +18,7 @@ export const Pagination = ({
 }: PropsType) => {
   const disaptch = useAppDispatch()
   const itemsPerPage = useAppSelector(itemsPerPageSelector)
-
+  const { t } = useTranslation()
   const onClickChangeItemsPerPageHandler = (num: string) => disaptch(setItemsPerPage(+num))
 
   const {
@@ -64,13 +65,13 @@ export const Pagination = ({
         {'>'}
       </button>
       <div className={s.select_wrapper}>
-        <Typography variant={'body2'}>Show</Typography>
+        <Typography variant={'body2'}>{t('Show')}</Typography>
         <Select
           onValueChange={onClickChangeItemsPerPageHandler}
           options={options}
           value={`${itemsPerPage}`}
         />
-        <Typography variant={'body2'}>per page</Typography>
+        <Typography variant={'body2'}>{t('per Page')}</Typography>
       </div>
     </div>
   )

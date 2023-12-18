@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import {
   Navigate,
   Outlet,
@@ -33,7 +34,13 @@ function PrivateRoutes() {
   const { data: me } = useGetMeQuery()
   const isAuthenticated = me?.id
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
+  return isAuthenticated ? (
+    <Suspense fallback={'loading...'}>
+      <Outlet />
+    </Suspense>
+  ) : (
+    <Navigate to={'/login'} />
+  )
 }
 
 const router = createBrowserRouter([
