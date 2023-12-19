@@ -40,6 +40,9 @@ button {
 }
 
 .SelectContent {
+  position: relative;
+  z-index: 110;
+
   overflow: hidden;
 
   width: var(--radix-select-trigger-width);
@@ -108,4 +111,10 @@ button {
   height: 25px;
 
   background: transparent;
+}
+
+.Icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

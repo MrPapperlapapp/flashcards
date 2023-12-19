@@ -27,7 +27,9 @@ export const Select = ({ disabled, label, onValueChange, options, value }: Props
           <Typography variant={'body1'}>
             <RadixSelect.Value />
           </Typography>
-          <RadixSelect.Icon>{isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}</RadixSelect.Icon>
+          <RadixSelect.Icon className={s.Icon}>
+            {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+          </RadixSelect.Icon>
         </RadixSelect.Trigger>
         <RadixSelect.Portal>
           <RadixSelect.Content className={s.SelectContent} position={'popper'}>

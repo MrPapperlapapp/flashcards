@@ -3,3 +3,19 @@
 @forward 'boilerplate';
 @forward 'typography';
 @forward 'mixin';
+
+.app.light {
+  --header-color: #fffefe;
+
+  min-height: 100%;
+  color: var(--color-light-100);
+  background-color: var(--color-light-500);
+}
+
+.app.dark {
+  --header-color: var(--color-dark-700);
+
+  min-height: 100%;
+  color: var(--color-light-100);
+  background-color: var(--color-dark-900);
+}

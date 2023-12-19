@@ -1,21 +1,33 @@
 import { useTranslation } from 'react-i18next'
 
+import { LangType, changeLang } from '@/app/app.slice'
+import { useAppDispatch, useAppSelector } from '@/app/store'
 import { LogOutIcon } from '@/assets/icons/log-out-icon'
 import { ProfileIcon } from '@/assets/icons/profile-icon'
+import { Select } from '@/components'
 import { Avatar } from '@/components/ui/avatar/avatar'
 import { DropDownItem, DropdownMenu } from '@/components/ui/dropdown-menu'
 import { Typography } from '@/components/ui/typography'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
+import i18n from 'i18next'
 
 import s from './user.module.scss'
 
 export const User = () => {
+  const lang = useAppSelector(state => state.app.lang)
+  const dispatch = useAppDispatch()
   const { data: user } = useGetMeQuery()
   const userName = user?.name ?? 'UserName'
   const { t } = useTranslation('profile')
 
+  const changeLangHandler = (lang: string) => {
+    dispatch(changeLang(lang as LangType))
+    i18n.changeLanguage(lang)
+  }
+
   return (
     <div className={s.user}>
+      <Select onValueChange={changeLangHandler} options={Options} value={lang} />
       <Typography className={s.name} variant={'subtitle1'}>
         {userName}
       </Typography>
@@ -47,3 +59,9 @@ export const User = () => {
     </div>
   )
 }
+
+const Options = [
+  { label: 'English', value: 'en' },
+  { label: 'Deutsch', value: 'de' },
+  { label: 'Русский', value: 'ru' },
+]
