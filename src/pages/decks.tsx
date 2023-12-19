@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
 import { Loading, Pagination, Thead } from '@/components'
+import { Test } from '@/components/ui/test/test.tsx'
 import { useGetDecksQuery } from '@/entity/decks/api'
 import {
   UseDecksFilters,
@@ -56,6 +57,7 @@ export const Decks = () => {
 
   return (
     <>
+      <Test.aria />
       <DecksFilters
         authorId={authorId}
         maxCardsCount={decks?.maxCardsCount}
