@@ -26,7 +26,7 @@ i18n
       escapeValue: false, // not needed for react as it escapes by default
     },
 
-    lng: 'en',
+    lng: 'de',
   })
 
 export default i18n

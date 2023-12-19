@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import { LogOutIcon } from '@/assets/icons/log-out-icon'
 import { ProfileIcon } from '@/assets/icons/profile-icon'
 import { Avatar } from '@/components/ui/avatar/avatar'
@@ -10,6 +12,7 @@ import s from './user.module.scss'
 export const User = () => {
   const { data: user } = useGetMeQuery()
   const userName = user?.name ?? 'UserName'
+  const { t } = useTranslation('profile')
 
   return (
     <div className={s.user}>
@@ -34,11 +37,11 @@ export const User = () => {
         </DropDownItem>
         <DropDownItem>
           <ProfileIcon />
-          <Typography variant={'caption'}>Profile</Typography>
+          <Typography variant={'caption'}>{t('Profile')}</Typography>
         </DropDownItem>
         <DropDownItem>
           <LogOutIcon />
-          <Typography variant={'caption'}>Sign out</Typography>
+          <Typography variant={'caption'}>{t('Sign out')}</Typography>
         </DropDownItem>
       </DropdownMenu>
     </div>

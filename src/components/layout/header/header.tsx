@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { LogoIcon } from '@/assets/icons/logo-icon'
@@ -16,7 +17,15 @@ export const Header = ({ data }: PropsType) => {
         <Button as={'a'} className={s.logo} onClick={() => navigate('/')} variant={'icon'}>
           <LogoIcon />
         </Button>
-        <div>{data ? <User /> : <Button variant={'primary'}>LogIn</Button>}</div>
+        <div>
+          {data ? (
+            <Suspense>
+              <User />
+            </Suspense>
+          ) : (
+            <Button variant={'primary'}>LogIn</Button>
+          )}
+        </div>
       </div>
     </header>
   )

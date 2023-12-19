@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { CloseIcon } from '@/assets/icons/close-icon'
@@ -28,6 +29,27 @@ export const Deck = () => {
   const navigate = useNavigate()
   const { data: deck, isLoading: isDeckLoading } = useGetDeckQuery({ id: deckId ?? '0' })
   const { data: cards, isLoading: isCardsLoading } = useGetCardsQuery({ id: deckId ?? '0' })
+  const { t } = useTranslation('deck')
+
+  const columns = [
+    {
+      key: 'question',
+      sortable: true,
+      title: t('Question'),
+    },
+    {
+      key: 'answer',
+      title: t('Answer'),
+    },
+    {
+      key: 'updated',
+      title: t('Last Updated'),
+    },
+    {
+      key: 'grade',
+      title: t('Grade'),
+    },
+  ]
 
   if (!deckId) {
     return <div>Error</div>
@@ -54,7 +76,7 @@ export const Deck = () => {
       </Modal>
       <div className={s.container}>
         <button onClick={() => navigate(-1)}>
-          <Typography variant={'body2'}>Back to Decks</Typography>
+          <Typography variant={'body2'}>{t('Back to Decks')} </Typography>
         </button>
 
         <div className={s.header}>
@@ -69,26 +91,24 @@ export const Deck = () => {
             >
               <DropDownItem>
                 <LearnIcon />
-                <Typography variant={'caption'}>Learn</Typography>
+                <Typography variant={'caption'}>{t('Learn')}</Typography>
               </DropDownItem>
               <DropDownItem onClick={() => setIsEditCard(true)}>
                 <EditIcon />
-                <Typography variant={'caption'}>Edit</Typography>
+                <Typography variant={'caption'}>{t('Edit')}</Typography>
               </DropDownItem>
               <DropDownItem>
                 <DeleteIcon />
-                <Typography variant={'caption'}>Delete</Typography>
+                <Typography variant={'caption'}>{t('Delete')}</Typography>
               </DropDownItem>
             </DropdownMenu>
           </div>
-          {!!cards?.items.length && <Button variant={'primary'}> Learn to Pack</Button>}
+          {!!cards?.items.length && <Button variant={'primary'}> {t('Learn to Pack')}</Button>}
         </div>
         {!cards?.items.length && (
           <div className={s.no_cards}>
-            <Typography variant={'body1'}>
-              This pack is empty. Click add new card to fill this pack
-            </Typography>
-            <Button variant={'primary'}>Create Card</Button>
+            <Typography variant={'body1'}>{t('Empty Pack')}</Typography>
+            <Button variant={'primary'}>{t('Create Card')}</Button>
           </div>
         )}
         {!!cards?.items.length && (
@@ -103,23 +123,3 @@ export const Deck = () => {
     </>
   )
 }
-
-const columns = [
-  {
-    key: 'question',
-    sortable: true,
-    title: 'Question',
-  },
-  {
-    key: 'answer',
-    title: 'Answer',
-  },
-  {
-    key: 'updated',
-    title: 'Last Updated',
-  },
-  {
-    key: 'grade',
-    title: 'Grade',
-  },
-]
