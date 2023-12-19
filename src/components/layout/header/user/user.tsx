@@ -20,7 +20,7 @@ export const User = () => {
   const userName = user?.name ?? 'UserName'
   const { t } = useTranslation('profile')
 
-  const changeLangHandler = (lang: string) => {
+  const changeLangHandler = async (lang: string) => {
     dispatch(changeLang(lang as LangType))
     i18n.changeLanguage(lang)
   }
