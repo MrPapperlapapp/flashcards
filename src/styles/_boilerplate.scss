@@ -30,14 +30,14 @@ a:visited {
 }
 
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
 
   font-family: var(--font-family-primary), sans-serif;
   line-height: var(--line-height-m);
-  height: 100%;
-
   color: var(--color-light-100);
+
   background-color: var(--color-light-500);
 }
 

@@ -13,7 +13,7 @@ import {
   setSliderValue,
 } from '@/entity/decks/models/slice/decks.slice'
 
-export const UseDecksFilters = () => {
+export const useDecksFilters = () => {
   const slidersValue = useAppSelector(tabsSelector)
   const authorId = useAppSelector(authorIdSelector)
   const name = useAppSelector(searchByNameSelector)

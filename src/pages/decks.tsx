@@ -4,10 +4,10 @@ import { useAppDispatch, useAppSelector } from '@/app/store'
 import { Loading, Pagination, Thead } from '@/components'
 import { useGetDecksQuery } from '@/entity/decks/api'
 import {
-  UseDecksFilters,
   currentPageSelector,
   itemsPerPageSelector,
   setCurrentPage,
+  useDecksFilters,
 } from '@/entity/decks/models'
 import { DecksFilters } from '@/entity/decks/ui'
 import { DecksTable } from '@/entity/decks/ui/decks-table/decks-table'
@@ -24,7 +24,7 @@ export const Decks = () => {
     setSearchByNameHandler,
     setSliderValueHandler,
     slidersValue,
-  } = UseDecksFilters()
+  } = useDecksFilters()
 
   const currentPage = useAppSelector(currentPageSelector)
   const itemsPerPage = useAppSelector(itemsPerPageSelector)
