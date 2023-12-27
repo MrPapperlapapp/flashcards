@@ -1,1 +1,1 @@
-export * from './add-edit-deck-form.tsx'
+export * from './add-edit-deck-form'

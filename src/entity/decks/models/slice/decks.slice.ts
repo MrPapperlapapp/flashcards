@@ -3,7 +3,7 @@ import { decksAPI } from '@/entity/decks/api/decks.api'
 import { DecksResponse } from '@/entity/decks/api/decks.types'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-const initialState: InitialState = {
+const initialState: DecksInitialState = {
   filters: {
     authorId: '',
     maxCardsCount: undefined,
@@ -63,7 +63,7 @@ export const {
   setSliderValue,
 } = slice.actions
 
-type InitialState = {
+export type DecksInitialState = {
   filters: {
     authorId: string
     maxCardsCount?: number

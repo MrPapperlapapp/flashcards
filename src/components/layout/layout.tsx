@@ -10,8 +10,6 @@ export const Layout = () => {
   const { data, isLoading } = useGetMeQuery()
 
   if (isLoading) {
-    console.log('Layout loading')
-
     return <Loading />
   }
 

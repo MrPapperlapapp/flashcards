@@ -55,8 +55,6 @@ export const Deck = () => {
     return <div>Error</div>
   }
   if (isCardsLoading || isDeckLoading) {
-    console.log('deckLoading')
-
     return <Loading />
   }
 

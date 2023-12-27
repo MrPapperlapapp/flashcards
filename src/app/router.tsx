@@ -9,7 +9,7 @@ import {
 
 import { Layout } from '@/components/layout/layout'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
-import { Deck } from '@/pages/deck.tsx'
+import { Deck } from '@/pages/deck'
 import { Decks } from '@/pages/decks'
 
 const publicRoutes: RouteObject[] = [

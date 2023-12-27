@@ -1,1 +1,1 @@
-export * from './trow.tsx'
+export * from './trow'

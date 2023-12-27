@@ -122,10 +122,7 @@ const usePagination = (
   const isFirstPage = currentPage === 1
   const isLastPage = currentPage === totalPages
 
-  const changeCurrentPageHandler = useCallback(
-    (page: number) => onChange(page),
-    [currentPage, onChange]
-  )
+  const changeCurrentPageHandler = useCallback((page: number) => onChange(page), [onChange])
   const nextPageHandler = useCallback(() => onChange(currentPage + 1), [currentPage, onChange])
   const prevPageHandler = useCallback(() => onChange(currentPage - 1), [currentPage, onChange])
 

@@ -9,7 +9,7 @@ import { Avatar } from '@/components/ui/avatar/avatar'
 import { DropDownItem, DropdownMenu } from '@/components/ui/dropdown-menu'
 import { Typography } from '@/components/ui/typography'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
-import i18n from 'i18next'
+import { changeLanguage } from 'i18next'
 
 import s from './user.module.scss'
 
@@ -21,7 +21,7 @@ export const User = () => {
   const { t } = useTranslation('profile')
 
   const changeLangHandler = async (lang: string) => {
-    i18n.changeLanguage(lang).then(() => dispatch(changeLang(lang as LangType)))
+    changeLanguage(lang).then(() => dispatch(changeLang(lang as LangType)))
   }
 
   return (
