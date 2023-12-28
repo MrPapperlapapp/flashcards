@@ -1,5 +1,6 @@
 export default {
   moduleNameMapper: {
+    '.+\\.(css|styl|less|sass|scss|svg)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   modulePaths: ['<rootDir>'],

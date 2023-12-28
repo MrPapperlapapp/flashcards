@@ -17,7 +17,6 @@ describe('useDeckFilters.test', () => {
       result.current.setSliderValueHandler([33, 99])
       result.current.setAuthorIdHandler('eas3234-esa111s-18elfis3')
     })
-
     expect(result.current.name).toEqual('Jawohl')
     expect(result.current.slidersValue).toEqual([33, 99])
     expect(result.current.authorId).toEqual('eas3234-esa111s-18elfis3')
