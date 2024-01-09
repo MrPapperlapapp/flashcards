@@ -1,17 +1,17 @@
 import { Provider } from 'react-redux'
 
 import { store } from '@/app/store'
-import { Decks } from '@/pages/decks'
+import { DecksPage } from '@/pages/decks-page.tsx'
 import { render, screen } from '@testing-library/react'
 
-describe('Decks Page Test', () => {
+describe('DecksPage Page Test', () => {
   test('work with value', () => {
     render(
       <Provider store={store}>
-        <Decks />
+        <DecksPage />
       </Provider>
     )
-    const link = screen.getByText(/Create Deck/i)
+    const link = screen.getByText(/Create DeckPage/i)
 
     console.log(link)
     expect(link).toBeInTheDocument()

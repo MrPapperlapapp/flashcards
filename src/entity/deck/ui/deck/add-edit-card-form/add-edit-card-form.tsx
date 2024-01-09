@@ -2,13 +2,13 @@ import { useState } from 'react'
 
 import cover from '@/assets/icons/no-cover.svg'
 import { Button, Select, Typography } from '@/components'
-import { ControledFileuploader } from '@/components/ui/controled-ui/controled-fileuploader/controled-fileuploader'
-import { ControledTextfield } from '@/components/ui/controled-ui/controled-textfield/controled-textfield'
-import { Cards, EditCardsParams } from '@/entity/deck/api/deck.types'
+import { ControledFileuploader } from '@/components/ui/controled-ui/controled-fileuploader/controled-fileuploader.tsx'
+import { ControledTextfield } from '@/components/ui/controled-ui/controled-textfield/controled-textfield.tsx'
+import { Cards, EditCardsParams } from '@/entity/deck/api/deck.types.ts'
 import {
   CardFormType,
   UseAddEditCardForm,
-} from '@/entity/deck/ui/add-edit-card-form/useAddEditCardForm'
+} from '@/entity/deck/ui/deck/add-edit-card-form/useAddEditCardForm.ts'
 
 import s from './add-edit-card-form.module.scss'
 

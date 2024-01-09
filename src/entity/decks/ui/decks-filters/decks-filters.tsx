@@ -59,14 +59,14 @@ export const DecksFilters = ({
         close={<CloseIcon />}
         onOpen={open => setOpenModal(open)}
         open={openModal}
-        title={'Create Deck'}
+        title={'Create DeckPage'}
       >
         <AddEditDeckForm onClose={() => setOpenModal(false)} onSubmit={onSubmit} />
       </Modal>
       <div className={s.deck_header}>
         <Typography variant={'large'}>Decks list</Typography>
         <Button onClick={() => setOpenModal(true)} variant={'primary'}>
-          {t('Create Deck')}
+          {t('Create DeckPage')}
         </Button>
       </div>
       <div className={s.filters}>

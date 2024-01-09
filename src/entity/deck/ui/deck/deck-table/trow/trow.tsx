@@ -1,14 +1,17 @@
 import { useState } from 'react'
 
-import { CloseIcon } from '@/assets/icons/close-icon'
-import { DeleteIcon } from '@/assets/icons/delete-icon'
-import { EditIcon } from '@/assets/icons/edit-icon'
+import { CloseIcon } from '@/assets/icons/close-icon.tsx'
+import { DeleteIcon } from '@/assets/icons/delete-icon.tsx'
+import { EditIcon } from '@/assets/icons/edit-icon.tsx'
 import { Button, Modal } from '@/components'
-import { Grade } from '@/components/ui/grade/grade'
-import { useGetMeQuery } from '@/entity/auth/api/auth.api'
-import { useEditCardMutation, useEditGradeMutation } from '@/entity/deck/api/deck.api'
-import { Cards } from '@/entity/deck/api/deck.types'
-import { AddEditCardForm, DataValue } from '@/entity/deck/ui/add-edit-card-form/add-edit-card-form'
+import { Grade } from '@/components/ui/grade/grade.tsx'
+import { useGetMeQuery } from '@/entity/auth/api/auth.api.ts'
+import { useEditCardMutation, useEditGradeMutation } from '@/entity/deck/api/deck.api.ts'
+import { Cards } from '@/entity/deck/api/deck.types.ts'
+import {
+  AddEditCardForm,
+  DataValue,
+} from '@/entity/deck/ui/deck/add-edit-card-form/add-edit-card-form.tsx'
 
 import s from './trow.module.scss'
 

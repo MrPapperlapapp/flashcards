@@ -9,8 +9,10 @@ import {
 
 import { Layout } from '@/components/layout/layout'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
-import { Deck } from '@/pages/deck'
-import { Decks } from '@/pages/decks'
+import { Deck } from '@/entity/deck/ui/deck/deck.tsx'
+import { DeckPage } from '@/pages/deck-page.tsx'
+import { DecksPage } from '@/pages/decks-page.tsx'
+import { Learn } from '@/pages/learn'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -21,11 +23,21 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    element: <Decks />,
+    element: <DecksPage />,
     path: '/',
   },
   {
-    element: <Deck />,
+    children: [
+      {
+        element: <Learn />,
+        path: '/:deckId/learn',
+      },
+      {
+        element: <Deck />,
+        path: '/:deckId',
+      },
+    ],
+    element: <DeckPage />,
     path: '/:deckId',
   },
 ]

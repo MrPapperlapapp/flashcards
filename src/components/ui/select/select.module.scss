@@ -41,7 +41,7 @@ button {
 
 .SelectContent {
   position: relative;
-  z-index: 110;
+  z-index: var(--select-z-index);
 
   overflow: hidden;
 

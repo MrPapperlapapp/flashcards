@@ -12,7 +12,7 @@ import {
 import { DecksFilters } from '@/entity/decks/ui'
 import { DecksTable } from '@/entity/decks/ui/decks-table/decks-table'
 
-export const Decks = () => {
+export const DecksPage = () => {
   const dispatch = useAppDispatch()
 
   const {

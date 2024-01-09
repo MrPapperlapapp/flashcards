@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 import { Cards } from '@/entity/deck/api/deck.types'
-import { Trow } from '@/entity/deck/ui/deck-table/trow/trow'
+import { Trow } from '@/entity/deck/ui/deck/deck-table/trow/trow'
 
 import s from './deck-table.module.scss'
 

@@ -5,7 +5,7 @@ button {
 
 .DropdownMenuContent {
   position: relative;
-  z-index: 101;
+  z-index: var(--drop-down-z-index);
 
   max-width: var(--radix-dropdown-menu-content-available-width);
   padding: 12px;

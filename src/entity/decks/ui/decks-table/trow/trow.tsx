@@ -42,14 +42,14 @@ export const Trow = ({ data }: PropsType) => {
         <DeleteDeckForm
           onClose={() => setIsDelete(false)}
           onSubmit={deleteDeckHandler}
-          packName={data?.name || 'Deck name'}
+          packName={data?.name || 'DeckPage name'}
         />
       </Modal>
       <Modal
         close={<CloseIcon />}
         onOpen={open => setIsEdit(open)}
         open={isEdit}
-        title={'Edit Deck'}
+        title={'Edit DeckPage'}
       >
         <AddEditDeckForm
           defaultValues={data}

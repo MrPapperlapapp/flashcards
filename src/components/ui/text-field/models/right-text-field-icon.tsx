@@ -8,6 +8,7 @@ export const RightTextFieldIcon = ({
   onPassShow,
   showPass = false,
   type = 'password',
+  value,
 }: PropsType) => {
   switch (type) {
     case 'password': {
@@ -20,7 +21,7 @@ export const RightTextFieldIcon = ({
     case 'search': {
       return (
         <button className={className} onClick={onClickClear}>
-          <CloseIcon />
+          {!!value && <CloseIcon />}
         </button>
       )
     }
@@ -35,4 +36,5 @@ type PropsType = {
   onPassShow?: () => void
   showPass?: boolean
   type?: 'file' | 'password' | 'search' | 'text'
+  value: boolean
 }

@@ -55,6 +55,7 @@ export const TextField = ({
           onPassShow={showPassHandler}
           showPass={showPass}
           type={type}
+          value={!!value}
         />
       </div>
       {errorMessage && (

@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  .icon {
+    display: flex;
+    align-items: center;
+  }
+}

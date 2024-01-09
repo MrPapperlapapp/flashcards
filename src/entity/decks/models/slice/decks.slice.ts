@@ -29,6 +29,7 @@ const slice = createSlice({
   reducers: {
     setAuthorId: (state, action: PayloadAction<string>) => {
       state.filters.authorId = action.payload
+      state.pagination.currentPage = initialState.pagination.currentPage
     },
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.pagination.currentPage = action.payload

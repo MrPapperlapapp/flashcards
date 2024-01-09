@@ -81,7 +81,7 @@ export const AddEditDeckForm = ({ defaultValues, onClose, onSubmit }: PropsType)
         <ControledTextfield
           autoFocus
           control={control}
-          label={'Deck name'}
+          label={'DeckPage name'}
           name={'name'}
           placeholder={'name'}
           type={'text'}
