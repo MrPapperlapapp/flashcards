@@ -5,6 +5,7 @@ import { EditIcon } from '@/assets/icons/edit-icon'
 import { LearnIcon } from '@/assets/icons/learn-icon'
 import { SettingsIcon } from '@/assets/icons/settings-icom'
 import { DropDownItem, DropdownMenu, Typography } from '@/components'
+import { useGetMeQuery } from '@/entity/auth/api/auth.api'
 import { Deck } from '@/entity/decks/api'
 import { clsx } from 'clsx'
 
@@ -18,6 +19,7 @@ type DeckDropDownProps = {
 
 export const DeckDropDown = ({ className, deck, setIsEditCard }: DeckDropDownProps) => {
   const { t } = useTranslation('deck')
+  const { data: me } = useGetMeQuery()
   const classNames = {
     icon: s.icon,
     root: clsx(s.root, className),
@@ -26,7 +28,7 @@ export const DeckDropDown = ({ className, deck, setIsEditCard }: DeckDropDownPro
   return (
     <div className={classNames.root}>
       <Typography variant={'large'}>{deck?.name}</Typography>
-      {!!deck?.cardsCount && (
+      {!!deck?.cardsCount && deck.userId === me?.id && (
         <DropdownMenu
           trigger={
             <button className={classNames.icon}>
