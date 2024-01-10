@@ -9,7 +9,7 @@ import s from './deck.module.scss'
 export const DeckPage = () => {
   const { deckId } = useParams()
   const navigate = useNavigate()
-  const { isLoading: isDeckLoading } = useGetDeckQuery({ id: deckId ?? '0' })
+  const { data: deck, isLoading: isDeckLoading } = useGetDeckQuery({ id: deckId ?? '0' })
   const { isLoading: isCardsLoading } = useGetCardsQuery({ id: deckId ?? '0' })
   const { t } = useTranslation('deck')
 
@@ -26,7 +26,7 @@ export const DeckPage = () => {
         <button onClick={() => navigate(-1)}>
           <Typography variant={'body2'}>{t('Back to Decks List')} </Typography>
         </button>
-        <Outlet />
+        <Outlet context={{ title: deck?.name }} />
       </div>
     </>
   )
