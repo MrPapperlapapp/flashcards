@@ -1,28 +1,28 @@
+import { Typography } from '@/components'
 import * as RadixRadioGroup from '@radix-ui/react-radio-group'
-import clsx from 'clsx'
 
 import s from './radio-group.module.scss'
 
-type RadioGroupProps = {
+export type RadioGroupProps = {
   onChangeValue: (value: string) => void
   options: RadioGroupItemProps[]
+  title?: string
   value: string
 }
 
-export const RadioGroup = ({ onChangeValue, options, value }: RadioGroupProps) => {
+export const RadioGroup = ({ onChangeValue, options, title, value }: RadioGroupProps) => {
   return (
-    <form>
-      <RadixRadioGroup.Root
-        aria-label={'View density'}
-        className={s.root}
-        onValueChange={onChangeValue}
-        value={value}
-      >
-        {options.map((o, idx) => (
-          <RadioGroupItem key={idx} label={o.label} value={o.value} />
-        ))}
-      </RadixRadioGroup.Root>
-    </form>
+    <RadixRadioGroup.Root
+      aria-label={'View density'}
+      className={s.root}
+      onValueChange={onChangeValue}
+      value={value}
+    >
+      {title && <Typography variant={'subtitle1'}>{title}</Typography>}
+      {options.map((o, idx) => (
+        <RadioGroupItem key={idx} label={o.label} value={o.value} />
+      ))}
+    </RadixRadioGroup.Root>
   )
 }
 

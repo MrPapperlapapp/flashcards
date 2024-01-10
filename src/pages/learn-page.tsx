@@ -4,7 +4,7 @@ import { useOutletContext, useParams } from 'react-router-dom'
 import { Button, Typography } from '@/components'
 import { Cards } from '@/components/ui/cards/cards'
 import { useGetQuestionQuery } from '@/entity/learn/api/learn.api'
-import { AnswerForm } from '@/entity/learn/ui/answer-form'
+import { AnswerForm, AnswerFormData } from '@/entity/learn/ui/answer-form'
 import clsx from 'clsx'
 
 import s from './learn-page.module.scss'
@@ -30,9 +30,10 @@ export const LearnPage = ({ className }: learnProps) => {
   const onClickShowAnswer = () => {
     setIsShowAnswer(true)
   }
-  const onClickShowNextQuestion = () => {
+  const onClickShowNextQuestion = (data: AnswerFormData) => {
     setPrevQuestionId(question?.id)
     setIsShowAnswer(false)
+    console.log(data)
   }
 
   return (

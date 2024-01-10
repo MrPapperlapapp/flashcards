@@ -1,27 +1,37 @@
+import { useForm } from 'react-hook-form'
+
 import { Button, Typography } from '@/components'
-import { RadioGroup } from '@/components/ui/radio-group/radio-group'
+import { ControledRadioGroup } from '@/components/ui/controled-ui/controled-radiogroup/controled-radiogroup'
 import clsx from 'clsx'
 
 import s from './answer-form.module.scss'
 
 type AnswerProps = {
   answer?: string
-  onNext: () => void
+  onNext: (data: AnswerFormData) => void
 }
-
-export const AnswerForm = ({ answer }: AnswerProps) => {
+export type AnswerFormData = {
+  grade: string
+}
+export const AnswerForm = ({ answer, onNext }: AnswerProps) => {
   const classNames = {
     root: clsx(s.root),
   }
+  const { control, handleSubmit } = useForm({ defaultValues: { grade: '2' } })
 
   return (
-    <div className={classNames.root}>
+    <form className={classNames.root} onSubmit={handleSubmit(onNext)}>
       <Typography variant={'subtitle1'}>{`Answer: ${answer}`}</Typography>
-      <RadioGroup onChangeValue={() => {}} options={OPTIONS} value={OPTIONS[0].value} />
+      <ControledRadioGroup
+        control={control}
+        name={'grade'}
+        options={OPTIONS}
+        title={'Rate you self'}
+      />
       <Button fullWidth variant={'primary'}>
         Next Question
       </Button>
-    </div>
+    </form>
   )
 }
 

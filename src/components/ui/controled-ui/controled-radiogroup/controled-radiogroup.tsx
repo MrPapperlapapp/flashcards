@@ -1,8 +1,8 @@
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
-import { CheckBoxType, Checkbox } from '@/components'
+import { RadioGroup, RadioGroupProps } from '@/components/ui/radio-group/radio-group'
 
-export const ControledCheckbox = <T extends FieldValues>({
+export const ControledRadioGroup = <T extends FieldValues>({
   control,
   disabled,
   name,
@@ -13,8 +13,8 @@ export const ControledCheckbox = <T extends FieldValues>({
     field: { onChange, value },
   } = useController({ control, disabled, name, shouldUnregister })
 
-  return <Checkbox checked={value} onChangeChecked={onChange} {...rest} />
+  return <RadioGroup onChangeValue={onChange} value={value} {...rest} />
 }
 
 type PropsType<T extends FieldValues> = Omit<UseControllerProps<T>, 'defaultValue' | 'rules'> &
-  Omit<CheckBoxType, 'checked' | 'onChangeChecked'>
+  Omit<RadioGroupProps, 'onChangeValue' | 'value'>

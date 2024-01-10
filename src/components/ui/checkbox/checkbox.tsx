@@ -45,9 +45,9 @@ export const Checkbox = ({
 }
 
 export type CheckBoxType = {
-  checked?: boolean
+  checked: boolean
   className?: string
   disabled?: boolean
   label?: string
-  onChangeChecked?: (checked: boolean) => void
+  onChangeChecked: (checked: boolean) => void
 }
