@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useOutletContext, useParams } from 'react-router-dom'
 
-import { Button, Typography } from '@/components'
+import { Button, Loading, Typography } from '@/components'
 import { Cards } from '@/components/ui/cards/cards'
 import { useGetQuestionQuery } from '@/entity/learn/api/learn.api'
 import { AnswerForm, AnswerFormData } from '@/entity/learn/ui/answer-form'
@@ -18,7 +18,14 @@ export const LearnPage = ({ className }: learnProps) => {
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const { deckId } = useParams()
   const { title } = useOutletContext<{ title: string | undefined }>()
-  const { data: question } = useGetQuestionQuery({ id: deckId, previousCardId: prevQuestionId })
+  const {
+    data: question,
+    isFetching,
+    isLoading: isQuestionLoading,
+  } = useGetQuestionQuery({
+    id: deckId,
+    previousCardId: prevQuestionId,
+  })
   const classNames = {
     attempts: s.attempts,
     cards: s.cards,
@@ -33,7 +40,12 @@ export const LearnPage = ({ className }: learnProps) => {
   const onClickShowNextQuestion = (data: AnswerFormData) => {
     setPrevQuestionId(question?.id)
     setIsShowAnswer(false)
-    console.log(data)
+  }
+
+  if (isFetching) {
+    console.log('isQuestionLoading ', isQuestionLoading)
+
+    return <Loading />
   }
 
   return (
