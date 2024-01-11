@@ -3,4 +3,8 @@
   gap: 3px;
   align-items: center;
   color: #e6ac39;
+
+  & button {
+    cursor: initial;
+  }
 }

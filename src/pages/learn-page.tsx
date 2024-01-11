@@ -3,7 +3,7 @@ import { useOutletContext, useParams } from 'react-router-dom'
 
 import { Button, Loading, Typography } from '@/components'
 import { Cards } from '@/components/ui/cards/cards'
-import { useGetQuestionQuery } from '@/entity/learn/api/learn.api'
+import { useEditGradeMutation, useGetQuestionQuery } from '@/entity/learn/api/learn.api'
 import { AnswerForm, AnswerFormData } from '@/entity/learn/ui/answer-form'
 import clsx from 'clsx'
 
@@ -14,22 +14,24 @@ type learnProps = {
 }
 
 export const LearnPage = ({ className }: learnProps) => {
-  const [prevQuestionId, setPrevQuestionId] = useState<string | undefined>()
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const { deckId } = useParams()
   const { title } = useOutletContext<{ title: string | undefined }>()
   const {
-    data: question,
+    data: questionData,
     isFetching,
     isLoading: isQuestionLoading,
   } = useGetQuestionQuery({
     id: deckId,
-    previousCardId: prevQuestionId,
   })
+  const [editGrade, { isLoading }] = useEditGradeMutation()
+
+  const question = questionData
   const classNames = {
     attempts: s.attempts,
     cards: s.cards,
     question: s.question,
+    questionImg: s.questionImg,
     root: clsx(s.root, className),
     text: s.text,
     title: s.title,
@@ -38,11 +40,11 @@ export const LearnPage = ({ className }: learnProps) => {
     setIsShowAnswer(true)
   }
   const onClickShowNextQuestion = (data: AnswerFormData) => {
-    setPrevQuestionId(question?.id)
     setIsShowAnswer(false)
+    editGrade({ cardId: question?.id!, deckId: deckId!, grade: +data.grade })
   }
 
-  if (isFetching) {
+  if (isFetching && isLoading) {
     console.log('isQuestionLoading ', isQuestionLoading)
 
     return <Loading />
@@ -58,12 +60,21 @@ export const LearnPage = ({ className }: learnProps) => {
           <Typography className={classNames.question} variant={'subtitle1'}>
             Question: {question?.question}
           </Typography>
+          {question?.questionImg && (
+            <div className={classNames.questionImg}>
+              <img alt={'Question Image'} src={question?.questionImg} />
+            </div>
+          )}
           <Typography className={classNames.attempts} variant={'subtitle2'}>
             Количество попыток ответов на вопрос: 10
           </Typography>
         </div>
         {isShowAnswer ? (
-          <AnswerForm answer={question?.answer} onNext={onClickShowNextQuestion} />
+          <AnswerForm
+            answer={question?.answer}
+            answerImg={question?.answerImg}
+            onNext={onClickShowNextQuestion}
+          />
         ) : (
           <Button fullWidth onClick={onClickShowAnswer} variant={'primary'}>
             Show Answer

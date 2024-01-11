@@ -30,11 +30,11 @@ const RadioGroupItem = ({ label, value }: RadioGroupItemProps) => {
   return (
     <div className={s.item__container}>
       <div className={s.item__wrapper}>
-        <RadixRadioGroup.Item className={s.item} value={value}>
+        <RadixRadioGroup.Item className={s.item} id={value} value={value}>
           <RadixRadioGroup.Indicator className={s.item__indicator} />
         </RadixRadioGroup.Item>
       </div>
-      <label className={s.label} htmlFor={'r1'}>
+      <label className={s.label} htmlFor={value}>
         {label}
       </label>
     </div>

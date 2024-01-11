@@ -6,7 +6,7 @@ import { EditIcon } from '@/assets/icons/edit-icon'
 import { Button, Modal } from '@/components'
 import { Grade } from '@/components/ui/grade/grade'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
-import { useEditCardMutation, useEditGradeMutation } from '@/entity/deck/api/deck.api'
+import { useEditCardMutation } from '@/entity/deck/api/deck.api'
 import { Cards } from '@/entity/deck/api/deck.types'
 import {
   AddEditCardForm,
@@ -18,13 +18,12 @@ import s from './trow.module.scss'
 export const Trow = ({ data }: PropsType) => {
   const [isEditCards, setIsEditCard] = useState(false)
   const { data: me } = useGetMeQuery()
-  const [editGrade] = useEditGradeMutation()
   const [editCard] = useEditCardMutation()
 
   if (!data) {
     return null
   }
-  const onEditGrade = (grade: number) => editGrade({ cardId: data.id, deckId: data.deckId, grade })
+
   const onEditCard = ({ answer, answerImg, question, questionImg }: DataValue) => {
     editCard({ answer, answerImg, deckId: data.deckId, id: data.id, question, questionImg })
     setIsEditCard(false)
@@ -45,7 +44,7 @@ export const Trow = ({ data }: PropsType) => {
         <td>{data?.answer}</td>
         <td>{data?.updated}</td>
         <td>
-          <Grade grade={data?.grade} onEditGrade={onEditGrade} />
+          <Grade grade={data?.grade} />
         </td>
         <td>
           {me?.id === data.userId && (

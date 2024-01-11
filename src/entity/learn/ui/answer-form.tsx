@@ -8,12 +8,13 @@ import s from './answer-form.module.scss'
 
 type AnswerProps = {
   answer?: string
+  answerImg?: string
   onNext: (data: AnswerFormData) => void
 }
 export type AnswerFormData = {
   grade: string
 }
-export const AnswerForm = ({ answer, onNext }: AnswerProps) => {
+export const AnswerForm = ({ answer, answerImg, onNext }: AnswerProps) => {
   const classNames = {
     root: clsx(s.root),
   }
@@ -21,7 +22,15 @@ export const AnswerForm = ({ answer, onNext }: AnswerProps) => {
 
   return (
     <form className={classNames.root} onSubmit={handleSubmit(onNext)}>
-      <Typography variant={'subtitle1'}>{`Answer: ${answer}`}</Typography>
+      <div className={'answer'}>
+        <Typography variant={'subtitle1'}>Answer: </Typography>
+        {answer && <Typography variant={'subtitle1'}>{answer}</Typography>}
+        {answerImg && (
+          <div className={s.answerImg}>
+            <img alt={'Answer Image'} src={answerImg} />
+          </div>
+        )}
+      </div>
       <ControledRadioGroup
         control={control}
         name={'grade'}

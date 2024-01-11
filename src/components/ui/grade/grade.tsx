@@ -4,13 +4,11 @@ import { Button } from '@/components'
 
 import s from './grade.module.scss'
 
-export const Grade = ({ grade = 0, onEditGrade }: PropsType) => {
-  const editGradeHandler = (num: number) => onEditGrade(num)
-
+export const Grade = ({ grade = 0 }: PropsType) => {
   return (
     <div className={s.container}>
       {Array.from({ length: 5 }, (_, idx) => idx + 1).map(g => (
-        <Button key={g} onClick={() => editGradeHandler(g)} variant={'icon'}>
+        <Button key={g} variant={'icon'}>
           {grade >= g ? <GradeIcon className={s.item} /> : <UnGradeIcon className={s.item} />}
         </Button>
       ))}
@@ -20,5 +18,4 @@ export const Grade = ({ grade = 0, onEditGrade }: PropsType) => {
 
 type PropsType = {
   grade?: number
-  onEditGrade: (grade: number) => void
 }

@@ -23,7 +23,7 @@ export const DeckPage = () => {
   return (
     <>
       <div className={s.container}>
-        <button onClick={() => navigate(-1)}>
+        <button onClick={() => navigate('/')}>
           <Typography variant={'body2'}>{t('Back to Decks List')} </Typography>
         </button>
         <Outlet context={{ title: deck?.name }} />
