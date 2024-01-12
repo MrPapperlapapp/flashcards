@@ -3,6 +3,7 @@ import { useOutletContext, useParams } from 'react-router-dom'
 
 import { Button, Loading, Typography } from '@/components'
 import { Cards } from '@/components/ui/cards/cards'
+import { ScrollBar } from '@/components/ui/scroll-bar/scroll-bar.tsx'
 import { useEditGradeMutation, useGetQuestionQuery } from '@/entity/learn/api/learn.api'
 import { AnswerForm, AnswerFormData } from '@/entity/learn/ui/answer-form'
 import clsx from 'clsx'
@@ -52,35 +53,37 @@ export const LearnPage = ({ className }: learnProps) => {
 
   return (
     <div className={classNames.root}>
-      <Cards as={'div'} className={classNames.cards}>
-        <Typography className={classNames.title} variant={'large'}>
-          {`Learn ${title}`}
-        </Typography>
-        <div className={classNames.text}>
-          <Typography className={classNames.question} variant={'subtitle1'}>
-            Question: {question?.question}
+      <ScrollBar maxHeight={'600px'} type={'always'}>
+        <Cards as={'div'} className={classNames.cards}>
+          <Typography className={classNames.title} variant={'large'}>
+            {`Learn ${title}`}
           </Typography>
-          {question?.questionImg && (
-            <div className={classNames.questionImg}>
-              <img alt={'Question Image'} src={question?.questionImg} />
-            </div>
+          <div className={classNames.text}>
+            <Typography className={classNames.question} variant={'subtitle1'}>
+              Question: {question?.question}
+            </Typography>
+            {question?.questionImg && (
+              <div className={classNames.questionImg}>
+                <img alt={'Question Image'} src={question?.questionImg} />
+              </div>
+            )}
+            <Typography className={classNames.attempts} variant={'subtitle2'}>
+              Количество попыток ответов на вопрос: 10
+            </Typography>
+          </div>
+          {isShowAnswer ? (
+            <AnswerForm
+              answer={question?.answer}
+              answerImg={question?.answerImg}
+              onNext={onClickShowNextQuestion}
+            />
+          ) : (
+            <Button fullWidth onClick={onClickShowAnswer} variant={'primary'}>
+              Show Answer
+            </Button>
           )}
-          <Typography className={classNames.attempts} variant={'subtitle2'}>
-            Количество попыток ответов на вопрос: 10
-          </Typography>
-        </div>
-        {isShowAnswer ? (
-          <AnswerForm
-            answer={question?.answer}
-            answerImg={question?.answerImg}
-            onNext={onClickShowNextQuestion}
-          />
-        ) : (
-          <Button fullWidth onClick={onClickShowAnswer} variant={'primary'}>
-            Show Answer
-          </Button>
-        )}
-      </Cards>
+        </Cards>
+      </ScrollBar>
     </div>
   )
 }
