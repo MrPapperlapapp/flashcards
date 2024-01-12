@@ -4,7 +4,6 @@
   justify-content: center;
 
   .cards {
-    width: 420px;
     padding: 40px 36px;
 
     & > *:not(:last-child) {
@@ -22,7 +21,7 @@
 
       .questionImg {
         position: relative;
-        height: 120px;
+        padding: 0 0 58%;
 
         & img {
           position: absolute;

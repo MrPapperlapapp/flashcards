@@ -1,6 +1,6 @@
 .answerImg {
   position: relative;
-  height: 180px;
+  padding: 0 0 58%;
 
   & img {
     position: absolute;
@@ -9,5 +9,7 @@
 
     width: 100%;
     height: 100%;
+
+    object-fit: cover;
   }
 }
