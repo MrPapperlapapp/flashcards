@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useOutletContext, useParams } from 'react-router-dom'
 
 import { Button, Loading, Typography } from '@/components'
 import { Cards } from '@/components/ui/cards/cards'
-import { ScrollBar } from '@/components/ui/scroll-bar/scroll-bar.tsx'
+import { ScrollBar } from '@/components/ui/scroll-bar/scroll-bar'
 import { useEditGradeMutation, useGetQuestionQuery } from '@/entity/learn/api/learn.api'
 import { AnswerForm, AnswerFormData } from '@/entity/learn/ui/answer-form'
 import clsx from 'clsx'
@@ -15,6 +16,7 @@ type learnProps = {
 }
 
 export const LearnPage = ({ className }: learnProps) => {
+  const { t } = useTranslation('learn')
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const { deckId } = useParams()
   const { title } = useOutletContext<{ title: string | undefined }>()
@@ -56,11 +58,11 @@ export const LearnPage = ({ className }: learnProps) => {
       <ScrollBar maxHeight={'600px'} type={'always'}>
         <Cards as={'div'} className={classNames.cards}>
           <Typography className={classNames.title} variant={'large'}>
-            {`Learn ${title}`}
+            {`${t('Learn')} "${title}"`}
           </Typography>
           <div className={classNames.text}>
             <Typography className={classNames.question} variant={'subtitle1'}>
-              Question: {question?.question}
+              {`${t('Question')}: ${question?.question}`}
             </Typography>
             {question?.questionImg && (
               <div className={classNames.questionImg}>
@@ -68,7 +70,7 @@ export const LearnPage = ({ className }: learnProps) => {
               </div>
             )}
             <Typography className={classNames.attempts} variant={'subtitle2'}>
-              Количество попыток ответов на вопрос: 10
+              {`${t('Count of attempts')}: 10`}
             </Typography>
           </div>
           {isShowAnswer ? (
@@ -79,7 +81,7 @@ export const LearnPage = ({ className }: learnProps) => {
             />
           ) : (
             <Button fullWidth onClick={onClickShowAnswer} variant={'primary'}>
-              Show Answer
+              {t('Show Answer')}
             </Button>
           )}
         </Cards>

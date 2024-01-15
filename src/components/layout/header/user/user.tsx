@@ -9,7 +9,6 @@ import { Avatar } from '@/components/ui/avatar/avatar'
 import { DropDownItem, DropdownMenu } from '@/components/ui/dropdown-menu'
 import { Typography } from '@/components/ui/typography'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
-import { changeLanguage } from 'i18next'
 
 import s from './user.module.scss'
 
@@ -18,10 +17,11 @@ export const User = () => {
   const dispatch = useAppDispatch()
   const { data: user } = useGetMeQuery()
   const userName = user?.name ?? 'UserName'
-  const { t } = useTranslation('profile')
+  const { i18n, t } = useTranslation('profile')
 
   const changeLangHandler = async (lang: string) => {
-    changeLanguage(lang).then(() => dispatch(changeLang(lang as LangType)))
+    // changeLanguage(lang).then(() => dispatch(changeLang(lang as LangType)))
+    await i18n.changeLanguage(lang).then(() => dispatch(changeLang(lang as LangType)))
   }
 
   return (

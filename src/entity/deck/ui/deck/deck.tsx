@@ -57,7 +57,7 @@ export const Deck = () => {
         <DeckDropDown deck={deck} setIsEditCard={() => setIsEditCard(true)} />
         {!!cards?.items.length && (
           <Button onClick={() => navigate(`/${deckId}/learn`)} variant={'primary'}>
-            {t('LearnPage to Pack')}
+            {t('Learn to Pack')}
           </Button>
         )}
       </div>

@@ -66,7 +66,7 @@ export const DecksFilters = ({
       <div className={s.deck_header}>
         <Typography variant={'large'}>Decks list</Typography>
         <Button onClick={() => setOpenModal(true)} variant={'primary'}>
-          {t('Create DeckPage')}
+          {t('Create Deck')}
         </Button>
       </div>
       <div className={s.filters}>
