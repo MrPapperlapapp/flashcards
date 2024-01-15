@@ -12,6 +12,7 @@ import {
   AddEditCardForm,
   DataValue,
 } from '@/entity/deck/ui/deck/add-edit-card-form/add-edit-card-form'
+import { ShowMore } from '@/utils/show-more/show-more.tsx'
 
 import s from './trow.module.scss'
 
@@ -40,7 +41,9 @@ export const Trow = ({ data }: PropsType) => {
         <AddEditCardForm defaultValue={data} onSubmit={onEditCard} />
       </Modal>
       <tr>
-        <td>{data?.question}</td>
+        <td>
+          <ShowMore value={data?.question} />
+        </td>
         <td>{data?.answer}</td>
         <td>{data?.updated}</td>
         <td>
