@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/app/store'
 import { Sort } from '@/components/ui/table/thead/thead'
 import {
   authorIdSelector,
+  getMaxCardsCount,
   orderBySelector,
   searchByNameSelector,
   tabsSelector,
@@ -15,6 +16,7 @@ import {
 
 export const useDecksFilters = () => {
   const slidersValue = useAppSelector(tabsSelector)
+  const maxCardCount = useAppSelector(getMaxCardsCount)
   const authorId = useAppSelector(authorIdSelector)
   const name = useAppSelector(searchByNameSelector)
   const orderBy = useAppSelector(orderBySelector)
@@ -27,6 +29,7 @@ export const useDecksFilters = () => {
 
   return {
     authorId,
+    maxCardCount,
     name,
     orderBy,
     setAuthorIdHandler,

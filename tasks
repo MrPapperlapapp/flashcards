@@ -12,3 +12,5 @@ label errors, loading learn page
 extraoptions endpoint redirect
 
 showmore
+
+taskPagination

@@ -7,6 +7,7 @@ import {
   DeleteDeckResponse,
   UpdateDeckParams,
 } from '@/entity/decks/api/decks.types'
+import { setMaxCardsCount } from '@/entity/decks/models'
 
 export const decksAPI = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -67,8 +68,8 @@ export const decksAPI = baseApi.injectEndpoints({
               authorId: authorId,
               currentPage: currentPage,
               itemsPerPage: itemsPerPage,
-              maxCardsCount: (slidersValue?.[1] && `${slidersValue[1]}`) || undefined,
-              minCardsCount: (slidersValue?.[0] && `${slidersValue[0]}`) || undefined,
+              maxCardsCount: `${slidersValue?.[1]}`,
+              minCardsCount: `${slidersValue?.[0]}`,
               name: name,
               orderBy: orderBy ? `${orderBy.key}-${orderBy.direction}` : undefined,
             },
@@ -91,6 +92,15 @@ export const decksAPI = baseApi.injectEndpoints({
       }),
     }),
     getDecks: builder.query<DecksResponse, DecksParams>({
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const result = await queryFulfilled
+
+          dispatch(setMaxCardsCount(result.data.maxCardsCount))
+        } catch (e) {
+          console.log(e)
+        }
+      },
       providesTags: (result, _error, _arg) =>
         result
           ? [
@@ -105,7 +115,10 @@ export const decksAPI = baseApi.injectEndpoints({
       }),
     }),
     updateDeck: builder.mutation<Deck, UpdateDeckParams & { id: string }>({
-      invalidatesTags: (_result, _errors, args) => [{ id: args.id, type: 'Decks' }],
+      invalidatesTags: (_result, _errors, args) => [
+        { id: args.id, type: 'Decks' },
+        { id: 'LIST', type: 'Decks' },
+      ],
       onQueryStarted: async (args, { dispatch, getState, queryFulfilled }) => {
         const {
           decks: {

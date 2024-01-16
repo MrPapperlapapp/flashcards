@@ -17,6 +17,7 @@ export const DecksPage = () => {
 
   const {
     authorId,
+    maxCardCount,
     name,
     orderBy,
     setAuthorIdHandler,
@@ -56,7 +57,7 @@ export const DecksPage = () => {
     <>
       <DecksFilters
         authorId={authorId}
-        maxCardsCount={decks?.maxCardsCount}
+        maxCardsCount={decks?.maxCardsCount ?? maxCardCount}
         name={name}
         setAuthorIdHandler={setAuthorIdHandler}
         setSearchByNameHandler={setSearchByNameHandler}
