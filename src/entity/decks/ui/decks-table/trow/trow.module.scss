@@ -11,8 +11,22 @@
 
 .name {
   cursor: pointer;
+  width: 201px;
+  max-width: 201px;
 
   &:hover {
     color: var(--color-accent-500);
   }
+}
+
+.updated {
+  width: 300px;
+  max-width: 300px;
+}
+
+.cardsCount,
+.createdby {
+  overflow: hidden;
+  width: 201px;
+  max-width: 201px;
 }

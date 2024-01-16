@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { useAppDispatch } from '@/app/store.ts'
 import { CloseIcon } from '@/assets/icons/close-icon'
 import { DeleteIcon } from '@/assets/icons/delete-icon'
 import { EditIcon } from '@/assets/icons/edit-icon'
@@ -8,12 +9,14 @@ import { LearnIcon } from '@/assets/icons/learn-icon'
 import { Modal } from '@/components'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
 import { Deck, useDeleteDeckMutation, useUpdateDeckMutation } from '@/entity/decks/api'
+import { setCurrentPage } from '@/entity/decks/models'
 import { AddEditDeckForm, DeleteDeckForm } from '@/entity/decks/ui'
 
 import s from './trow.module.scss'
 
 export const Trow = ({ data }: PropsType) => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const { data: me } = useGetMeQuery()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
@@ -61,9 +64,9 @@ export const Trow = ({ data }: PropsType) => {
         <td className={s.name} onClick={() => navigate(`/${data.id}`)}>
           {data.name}
         </td>
-        <td>{data.cardsCount}</td>
-        <td>{data.updated}</td>
-        <td>{data.author.name}</td>
+        <td className={s.cardsCount}>{data.cardsCount}</td>
+        <td className={s.updated}>{data.updated}</td>
+        <td className={s.createdby}>{data.author.name}</td>
         <td>
           <button className={s.icon} disabled={data.cardsCount === 0}>
             <LearnIcon />

@@ -30,15 +30,16 @@ export const Thead = ({ columns, onSort, sort, ...rest }: PropsType) => {
     }
 
   const classNames = {
-    cell: (sortable: boolean | undefined) => clsx(sortable && s.sortable),
+    cell: (sortable: boolean | undefined, key: string) =>
+      clsx(sortable && s.sortable, key && s[key]),
   }
 
   return (
     <thead {...rest}>
-      <tr>
+      <tr className={s.tr}>
         {columns.map(c => (
           <th
-            className={classNames.cell(c.sortable)}
+            className={classNames.cell(c.sortable, c.key)}
             key={c.key}
             onClick={handleSort(c.key, c.sortable)}
           >

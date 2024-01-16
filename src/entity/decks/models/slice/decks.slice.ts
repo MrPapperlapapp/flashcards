@@ -8,7 +8,10 @@ const initialState: DecksInitialState = {
     authorId: '',
     maxCardsCount: undefined,
     name: '',
-    orderBy: undefined,
+    orderBy: {
+      direction: 'desc',
+      key: 'updated',
+    },
     slidersValue: undefined,
   },
   pagination: {

@@ -89,6 +89,7 @@ const columns = [
   },
   {
     key: 'updated',
+    sortable: true,
     title: 'Last Updated',
   },
   {

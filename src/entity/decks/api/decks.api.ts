@@ -7,7 +7,8 @@ import {
   DeleteDeckResponse,
   UpdateDeckParams,
 } from '@/entity/decks/api/decks.types'
-import { setMaxCardsCount } from '@/entity/decks/models'
+import { setCurrentPage, setMaxCardsCount } from '@/entity/decks/models'
+import { object } from 'zod'
 
 export const decksAPI = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -132,7 +133,7 @@ export const decksAPI = baseApi.injectEndpoints({
             'getDecks',
             {
               authorId: authorId,
-              currentPage: currentPage,
+              currentPage: 1,
               itemsPerPage: itemsPerPage,
               maxCardsCount: (slidersValue?.[1] && `${slidersValue[1]}`) || undefined,
               minCardsCount: (slidersValue?.[0] && `${slidersValue[0]}`) || undefined,
@@ -140,18 +141,15 @@ export const decksAPI = baseApi.injectEndpoints({
               orderBy: orderBy ? `${orderBy.key}-${orderBy.direction}` : undefined,
             },
             draft => {
+              const deckIdx = draft?.items?.findIndex(d => d.id === args.id)
+              const sliceIdx = deckIdx === -1 ? draft?.items?.length - 1 : deckIdx
               const deck = draft?.items?.find(d => d.id === args.id)
 
               if (deck) {
-                if (args.name) {
-                  deck.name = args.name
-                }
-                if (args.cover) {
-                  deck.cover = URL.createObjectURL(args.cover)
-                }
-                if (args.isPrivate) {
-                  deck.isPrivate = args.isPrivate
-                }
+                const updatedDeck = Object.assign(deck, args)
+
+                draft?.items?.slice(sliceIdx, 1)
+                draft?.items?.unshift(updatedDeck)
               }
             }
           )
