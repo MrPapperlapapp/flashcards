@@ -148,7 +148,7 @@ export const decksAPI = baseApi.injectEndpoints({
               if (deck) {
                 const updatedDeck = Object.assign(deck, args)
 
-                draft?.items?.slice(sliceIdx, 1)
+                draft?.items?.splice(sliceIdx, 1)
                 draft?.items?.unshift(updatedDeck)
               }
             }
