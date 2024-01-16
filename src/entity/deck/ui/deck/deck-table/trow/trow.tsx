@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { CloseIcon } from '@/assets/icons/close-icon'
 import { DeleteIcon } from '@/assets/icons/delete-icon'
@@ -12,19 +12,34 @@ import {
   AddEditCardForm,
   DataValue,
 } from '@/entity/deck/ui/deck/add-edit-card-form/add-edit-card-form'
-import { ShowMore } from '@/utils/show-more/show-more.tsx'
+import { Cell } from '@/entity/deck/ui/deck/deck-table/trow/cell/cell'
+import { clsx } from 'clsx'
 
 import s from './trow.module.scss'
 
 export const Trow = ({ data }: PropsType) => {
   const [isEditCards, setIsEditCard] = useState(false)
+  const [showMore, setShowMore] = useState(false)
   const { data: me } = useGetMeQuery()
   const [editCard] = useEditCardMutation()
+  const divRef = useRef<HTMLDivElement>(null)
+
+  // useEffect(() => {
+  //   if (divRef?.current?.offsetHeight && divRef?.current?.scrollHeight) {
+  //     if (divRef?.current?.offsetHeight < divRef?.current?.scrollHeight) {
+  //       console.log('hallo < ', divRef?.current?.offsetHeight, divRef?.current?.scrollHeight)
+  //       // your element has an overflow
+  //       // show read more button
+  //     } else {
+  //       // your element doesn't have overflow
+  //       console.log('hallo > ', divRef?.current?.offsetHeight, divRef?.current?.scrollHeight)
+  //     }
+  //   }
+  // }, [divRef])
 
   if (!data) {
     return null
   }
-
   const onEditCard = ({ answer, answerImg, question, questionImg }: DataValue) => {
     editCard({ answer, answerImg, deckId: data.deckId, id: data.id, question, questionImg })
     setIsEditCard(false)
@@ -41,12 +56,14 @@ export const Trow = ({ data }: PropsType) => {
         <AddEditCardForm defaultValue={data} onSubmit={onEditCard} />
       </Modal>
       <tr>
-        <td>
-          <ShowMore value={data?.question} />
+        <td className={s.question}>
+          <Cell title={data?.question} />
         </td>
-        <td>{data?.answer}</td>
-        <td>{data?.updated}</td>
-        <td>
+        <td className={s.answer}>
+          <Cell title={data?.answer} />
+        </td>
+        <td className={s.updated}>{data?.updated}</td>
+        <td className={s.grade}>
           <Grade grade={data?.grade} />
         </td>
         <td>
