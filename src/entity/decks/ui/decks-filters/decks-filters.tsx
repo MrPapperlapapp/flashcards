@@ -27,7 +27,6 @@ export const DecksFilters = ({
 }: PropsType) => {
   const [openModal, setOpenModal] = useState(false)
 
-  console.log(maxCardsCount)
   const { data } = useGetMeQuery()
   const [createDeck] = useCreateDecksMutation()
   const userId = data?.id || ''

@@ -38,7 +38,11 @@ export const DecksPage = () => {
     return `${orderBy.key}-${orderBy.direction}`
   }, [orderBy])
 
-  const { currentData: decks, isLoading } = useGetDecksQuery({
+  const {
+    currentData: decks,
+    isLoading,
+    isFetching,
+  } = useGetDecksQuery({
     authorId,
     currentPage,
     itemsPerPage,
@@ -64,7 +68,7 @@ export const DecksPage = () => {
         setSliderValueHandler={setSliderValueHandler}
         sliderValue={slidersValue}
       />
-      <DecksTable data={decks?.items}>
+      <DecksTable data={decks?.items} isLoading={isFetching}>
         <Thead columns={columns} onSort={setOrderByHandler} sort={orderBy} />
       </DecksTable>
       <Pagination

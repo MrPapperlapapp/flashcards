@@ -1,42 +1,32 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useAppDispatch } from '@/app/store.ts'
 import { CloseIcon } from '@/assets/icons/close-icon'
 import { DeleteIcon } from '@/assets/icons/delete-icon'
 import { EditIcon } from '@/assets/icons/edit-icon'
 import { LearnIcon } from '@/assets/icons/learn-icon'
 import { Modal } from '@/components'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
-import { Deck, useDeleteDeckMutation, useUpdateDeckMutation } from '@/entity/decks/api'
-import { setCurrentPage } from '@/entity/decks/models'
+import { Deck } from '@/entity/decks/api'
 import { AddEditDeckForm, DeleteDeckForm } from '@/entity/decks/ui'
 
 import s from './trow.module.scss'
 
-export const Trow = ({ data }: PropsType) => {
+export const Trow = ({ data, updateDeck, deleteDeck }: PropsType) => {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
   const { data: me } = useGetMeQuery()
-  const [deleteDeck] = useDeleteDeckMutation()
-  const [updateDeck] = useUpdateDeckMutation()
   const [isDelete, setIsDelete] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
-
   if (!data) {
     return null
   }
   const deleteDeckHandler = () => {
     setIsDelete(false)
-    deleteDeck({ id: data?.id })
+    deleteDeck(data?.id)
   }
   const updateDeckHandler = (formData: FormData) => {
     setIsEdit(false)
-    const name = formData.get('name')?.toString()
-    const isPrivate = !!formData.get('isPrivate')?.toString()
-    const cover = formData.get('cover') as Blob
-
-    updateDeck({ cover, id: data?.id, isPrivate, name: name })
+    updateDeck(formData, data?.id)
   }
 
   return (
@@ -85,4 +75,6 @@ export const Trow = ({ data }: PropsType) => {
 
 type PropsType = {
   data?: Deck
+  updateDeck: (formData: FormData, id: string) => void
+  deleteDeck: (id: string) => void
 }
