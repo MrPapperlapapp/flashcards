@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom'
 
 import { Layout } from '@/components/layout/layout'
-import { ScrollBar } from '@/components/ui/scroll-bar/scroll-bar.tsx'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
 import { Deck } from '@/entity/deck/ui/deck/deck.tsx'
 import { DeckPage } from '@/pages/deck-page.tsx'
