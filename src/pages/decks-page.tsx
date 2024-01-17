@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/store'
-import { Loading, Pagination, Thead } from '@/components'
+import { Pagination, Thead } from '@/components'
 import { useGetDecksQuery } from '@/entity/decks/api'
 import {
   currentPageSelector,
@@ -38,11 +38,7 @@ export const DecksPage = () => {
     return `${orderBy.key}-${orderBy.direction}`
   }, [orderBy])
 
-  const {
-    currentData: decks,
-    isLoading,
-    isFetching,
-  } = useGetDecksQuery({
+  const { currentData: decks, isFetching } = useGetDecksQuery({
     authorId,
     currentPage,
     itemsPerPage,
@@ -52,10 +48,6 @@ export const DecksPage = () => {
     orderBy: sortedString,
   })
   const onClickChangeCurrentPageHandler = (page: number) => dispatch(setCurrentPage(page))
-
-  if (isLoading) {
-    return <Loading />
-  }
 
   return (
     <>
