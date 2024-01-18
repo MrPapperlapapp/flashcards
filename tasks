@@ -17,3 +17,5 @@ taskPagination
 
 
 editform min 3 chars
+
+isLoading cards

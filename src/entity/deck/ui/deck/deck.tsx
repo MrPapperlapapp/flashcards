@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { CloseIcon } from '@/assets/icons/close-icon'
-import { Button, Modal, TextField, Thead, Typography } from '@/components'
+import { Button, Modal, Pagination, TextField, Thead, Typography } from '@/components'
 import { useGetCardsQuery, useGetDeckQuery } from '@/entity/deck/api/deck.api'
 import { DeckDropDown } from '@/entity/deck/ui/deck/deck-drop-down/deck-drop-down'
 import { DeckTable } from '@/entity/deck/ui/deck/deck-table/deck-table'
@@ -73,6 +73,12 @@ export const Deck = () => {
           <DeckTable data={cards?.items}>
             <Thead columns={columns} />
           </DeckTable>
+          <Pagination
+            countPerPage={10}
+            currentPage={1}
+            onChangeCurrentPage={() => {}}
+            totalCount={33}
+          />
         </>
       )}
     </>

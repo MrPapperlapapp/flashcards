@@ -47,7 +47,7 @@ function PrivateRoutes() {
   const isAuthenticated = me?.id
 
   return isAuthenticated ? (
-    <Suspense fallback={'loading...'}>
+    <Suspense>
       <Outlet />
     </Suspense>
   ) : (

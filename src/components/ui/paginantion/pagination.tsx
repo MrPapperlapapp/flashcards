@@ -16,6 +16,7 @@ export const Pagination = ({
   onChangeCurrentPage,
   totalCount,
 }: PropsType) => {
+  console.log(totalCount)
   const disaptch = useAppDispatch()
   const itemsPerPage = useAppSelector(itemsPerPageSelector)
   const { t } = useTranslation()
@@ -35,7 +36,9 @@ export const Pagination = ({
     item: (selected: boolean = false) => clsx(s.item, selected && s.current),
     nextPrevButtons: s.nextPrevButtons,
   }
-
+  if (!range || range?.length <= 1) {
+    return
+  }
   return (
     <div className={classNames.container}>
       <button
@@ -85,6 +88,7 @@ const usePagination = (
 ) => {
   const totalPages = Math.floor(totalCount / countPerPage)
   const DOTS = '...'
+
   const pages = (start: number, end: number) => {
     const length = end - start + 1
 
@@ -93,7 +97,7 @@ const usePagination = (
   const range = useMemo(() => {
     /* 1 case < 7 items ( 2x Dots + 3 items + 2 start / end) */
     if (totalPages <= 7) {
-      return pages(1, 7)
+      return pages(1, totalPages)
     }
 
     const leftSibling = Math.max(currentPage - 1, 1) // 1

@@ -8,9 +8,7 @@ import '@/i18n/i18n'
 function App() {
   return (
     <Provider store={store}>
-      <div className={'app dark'}>
-        <Router />
-      </div>
+      <Router />
     </Provider>
   )
 }

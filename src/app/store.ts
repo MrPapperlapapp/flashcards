@@ -4,6 +4,7 @@ import { appReducer } from '@/app/app.slice'
 import { baseApi } from '@/app/baseApi'
 import { decksReducer } from '@/entity/decks/models/slice/decks.slice'
 import { configureStore } from '@reduxjs/toolkit'
+import { deckReducer } from '@/entity/deck/model/slice/deck.slice.ts'
 
 export const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseApi.middleware),
@@ -11,6 +12,7 @@ export const store = configureStore({
     app: appReducer,
     [baseApi.reducerPath]: baseApi.reducer,
     decks: decksReducer,
+    deck: deckReducer,
   },
 })
 
