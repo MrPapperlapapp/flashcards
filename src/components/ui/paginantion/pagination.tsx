@@ -1,11 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
-import { useAppDispatch, useAppSelector } from '@/app/store'
 import { Select } from '@/components'
 import { Typography } from '@/components/ui/typography'
-import { itemsPerPageSelector } from '@/entity/decks/models/selectors/decks.selectors'
-import { setItemsPerPage } from '@/entity/decks/models/slice/decks.slice'
 import { clsx } from 'clsx'
 
 import s from './paginantion.module.scss'
@@ -14,13 +10,13 @@ export const Pagination = ({
   countPerPage,
   currentPage,
   onChangeCurrentPage,
+  onChangeItemsPerPage,
   totalCount,
 }: PropsType) => {
-  console.log(totalCount)
-  const disaptch = useAppDispatch()
-  const itemsPerPage = useAppSelector(itemsPerPageSelector)
   const { t } = useTranslation()
-  const onClickChangeItemsPerPageHandler = (num: string) => disaptch(setItemsPerPage(+num))
+  const onClickChangeItemsPerPageHandler = (num: string) => {
+    onChangeItemsPerPage?.(num)
+  }
 
   const {
     changeCurrentPageHandler,
@@ -36,9 +32,7 @@ export const Pagination = ({
     item: (selected: boolean = false) => clsx(s.item, selected && s.current),
     nextPrevButtons: s.nextPrevButtons,
   }
-  if (!range || range?.length <= 1) {
-    return
-  }
+
   return (
     <div className={classNames.container}>
       <button
@@ -72,7 +66,7 @@ export const Pagination = ({
         <Select
           onValueChange={onClickChangeItemsPerPageHandler}
           options={options}
-          value={`${itemsPerPage}`}
+          value={`${countPerPage}`}
         />
         <Typography variant={'body2'}>{t('per Page')}</Typography>
       </div>
@@ -130,6 +124,9 @@ const usePagination = (
   const nextPageHandler = useCallback(() => onChange(currentPage + 1), [currentPage, onChange])
   const prevPageHandler = useCallback(() => onChange(currentPage - 1), [currentPage, onChange])
 
+  if (!range?.length) {
+    range?.push(1)
+  }
   return {
     changeCurrentPageHandler,
     isFirstPage,
@@ -152,4 +149,5 @@ type PropsType = {
   currentPage: number
   onChangeCurrentPage: (value: number) => void
   totalCount: number
+  onChangeItemsPerPage?: (value: string) => void
 }

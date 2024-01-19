@@ -7,6 +7,7 @@ import {
   currentPageSelector,
   itemsPerPageSelector,
   setCurrentPage,
+  setItemsPerPage,
   useDecksFilters,
 } from '@/entity/decks/models'
 import { DecksFilters } from '@/entity/decks/ui'
@@ -29,7 +30,6 @@ export const DecksPage = () => {
 
   const currentPage = useAppSelector(currentPageSelector)
   const itemsPerPage = useAppSelector(itemsPerPageSelector)
-
   const sortedString = useMemo(() => {
     if (!orderBy) {
       return undefined
@@ -48,7 +48,7 @@ export const DecksPage = () => {
     orderBy: sortedString,
   })
   const onClickChangeCurrentPageHandler = (page: number) => dispatch(setCurrentPage(page))
-
+  const onClickChangeItemsPerPage = (value: string) => dispatch(setItemsPerPage(+value))
   return (
     <>
       <DecksFilters
@@ -68,6 +68,7 @@ export const DecksPage = () => {
         currentPage={currentPage}
         onChangeCurrentPage={onClickChangeCurrentPageHandler}
         totalCount={decks?.pagination?.totalItems || 1}
+        onChangeItemsPerPage={onClickChangeItemsPerPage}
       />
     </>
   )

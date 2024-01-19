@@ -11,12 +11,8 @@ import { Deck } from '@/entity/decks/api'
 import { AddEditDeckForm, DeleteDeckForm } from '@/entity/decks/ui'
 
 import s from './trow.module.scss'
-import { useAppDispatch } from '@/app/store.ts'
-import { setDeckId } from '@/entity/deck/model/slice/deck.slice.ts'
-
 export const Trow = ({ data, updateDeck, deleteDeck }: PropsType) => {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
   const { data: me } = useGetMeQuery()
   const [isDelete, setIsDelete] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
@@ -32,7 +28,6 @@ export const Trow = ({ data, updateDeck, deleteDeck }: PropsType) => {
     updateDeck(formData, data?.id)
   }
   const onClickRedirect = () => {
-    dispatch(setDeckId(data?.id))
     navigate(`/${data.id}`)
   }
   return (

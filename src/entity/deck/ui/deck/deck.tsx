@@ -10,11 +10,20 @@ import { DeckTable } from '@/entity/deck/ui/deck/deck-table/deck-table'
 import { AddEditDeckForm } from '@/entity/decks/ui'
 
 import s from './deck.module.scss'
+import { useAppDispatch, useAppSelector } from '@/app/store.ts'
+import {
+  setDeckCurrentPageSelector,
+  setDeckItemPerPageSelector,
+} from '@/entity/deck/model/selectors/deck.selectors.ts'
+import { setDeckCurrentPage, setDeckItemPerPage } from '@/entity/deck/model/slice/deck.slice.ts'
 
 export const Deck = () => {
   const [isEditCard, setIsEditCard] = useState(false)
   const { deckId } = useParams()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const currentPage = useAppSelector(setDeckCurrentPageSelector)
+  const itemsPerPage = useAppSelector(setDeckItemPerPageSelector)
   const { data: deck } = useGetDeckQuery({ id: deckId ?? '0' })
   const { data: cards } = useGetCardsQuery({ id: deckId ?? '0' })
   const { t } = useTranslation('deck')
@@ -38,6 +47,9 @@ export const Deck = () => {
       title: t('Grade'),
     },
   ]
+
+  const onClickChangePage = (value: number) => dispatch(setDeckCurrentPage(value))
+  const onClickChageItemsPerPage = (value: string) => dispatch(setDeckItemPerPage(+value))
 
   return (
     <>
@@ -74,10 +86,11 @@ export const Deck = () => {
             <Thead columns={columns} />
           </DeckTable>
           <Pagination
-            countPerPage={10}
-            currentPage={1}
-            onChangeCurrentPage={() => {}}
-            totalCount={33}
+            countPerPage={itemsPerPage}
+            currentPage={currentPage}
+            onChangeCurrentPage={onClickChangePage}
+            totalCount={cards?.pagination.totalItems || 1}
+            onChangeItemsPerPage={onClickChageItemsPerPage}
           />
         </>
       )}
