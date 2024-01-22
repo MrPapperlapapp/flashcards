@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useOutletContext, useParams } from 'react-router-dom'
 
@@ -16,18 +16,20 @@ type learnProps = {
 }
 
 export const LearnPage = ({ className }: learnProps) => {
+  const divRef = useRef<HTMLDivElement>(null)
+  const [divHeight, setDivHeight] = useState<number>(0)
   const { t } = useTranslation('learn')
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const { deckId } = useParams()
   const { title } = useOutletContext<{ title: string | undefined }>()
   const {
     data: questionData,
-    isFetching,
+    isFetching: isFetchingGetQuestion,
     isLoading: isQuestionLoading,
   } = useGetQuestionQuery({
     id: deckId,
   })
-  const [editGrade, { isLoading }] = useEditGradeMutation()
+  const [editGrade, { isLoading: isLoadingEditGrade }] = useEditGradeMutation()
 
   const question = questionData
   const classNames = {
@@ -46,45 +48,57 @@ export const LearnPage = ({ className }: learnProps) => {
     setIsShowAnswer(false)
     editGrade({ cardId: question?.id!, deckId: deckId!, grade: +data.grade })
   }
+  const isLoading = isLoadingEditGrade || isFetchingGetQuestion || isQuestionLoading
+  // const isLoading = true
 
-  if (isFetching && isLoading) {
-    console.log('isQuestionLoading ', isQuestionLoading)
+  useEffect(() => {
+    console.log('height: ', divRef?.current?.offsetHeight)
+    divRef?.current?.offsetHeight && setDivHeight(divRef?.current?.offsetHeight)
+  }, [isLoading])
 
-    return <Loading />
+  if (isLoading) {
+    return (
+      <div className={classNames.root}>
+        <Cards as={'div'} className={classNames.cards} style={{ height: divHeight }}>
+          <Loading />
+        </Cards>
+      </div>
+    )
   }
-
   return (
     <div className={classNames.root}>
       <ScrollBar maxHeight={'600px'} type={'always'}>
-        <Cards as={'div'} className={classNames.cards}>
-          <Typography className={classNames.title} variant={'large'}>
-            {`${t('Learn')} "${title}"`}
-          </Typography>
-          <div className={classNames.text}>
-            <Typography className={classNames.question} variant={'subtitle1'}>
-              {`${t('Question')}: ${question?.question}`}
+        <div ref={divRef}>
+          <Cards as={'div'} className={classNames.cards}>
+            <Typography className={classNames.title} variant={'large'}>
+              {`${t('Learn')} "${title}"`}
             </Typography>
-            {question?.questionImg && (
-              <div className={classNames.questionImg}>
-                <img alt={'Question Image'} src={question?.questionImg} />
-              </div>
+            <div className={classNames.text}>
+              <Typography className={classNames.question} variant={'subtitle1'}>
+                {`${t('Question')}: ${question?.question}`}
+              </Typography>
+              {question?.questionImg && (
+                <div className={classNames.questionImg}>
+                  <img alt={'Question Image'} src={question?.questionImg} />
+                </div>
+              )}
+              <Typography className={classNames.attempts} variant={'subtitle2'}>
+                {`${t('Count of attempts')}: 10`}
+              </Typography>
+            </div>
+            {isShowAnswer ? (
+              <AnswerForm
+                answer={question?.answer}
+                answerImg={question?.answerImg}
+                onNext={onClickShowNextQuestion}
+              />
+            ) : (
+              <Button fullWidth onClick={onClickShowAnswer} variant={'primary'}>
+                {t('Show Answer')}
+              </Button>
             )}
-            <Typography className={classNames.attempts} variant={'subtitle2'}>
-              {`${t('Count of attempts')}: 10`}
-            </Typography>
-          </div>
-          {isShowAnswer ? (
-            <AnswerForm
-              answer={question?.answer}
-              answerImg={question?.answerImg}
-              onNext={onClickShowNextQuestion}
-            />
-          ) : (
-            <Button fullWidth onClick={onClickShowAnswer} variant={'primary'}>
-              {t('Show Answer')}
-            </Button>
-          )}
-        </Cards>
+          </Cards>
+        </div>
       </ScrollBar>
     </div>
   )
