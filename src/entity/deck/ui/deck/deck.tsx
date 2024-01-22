@@ -80,7 +80,7 @@ export const Deck = () => {
         </div>
       )}
       {!!cards?.items.length && (
-        <>
+        <div className={s.body}>
           <TextField type={'search'} />
           <DeckTable data={cards?.items}>
             <Thead columns={columns} />
@@ -92,7 +92,7 @@ export const Deck = () => {
             totalCount={cards?.pagination.totalItems || 1}
             onChangeItemsPerPage={onClickChageItemsPerPage}
           />
-        </>
+        </div>
       )}
     </>
   )
