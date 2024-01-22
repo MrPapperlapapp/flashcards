@@ -10,9 +10,9 @@ import {
 import { Layout } from '@/components/layout/layout'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
 import { Deck } from '@/entity/deck/ui/deck/deck.tsx'
-import { DeckPage } from '@/pages/deck-page.tsx'
 import { DecksPage } from '@/pages/decks-page.tsx'
 import { LearnPage } from '@/pages/learn-page.tsx'
+import { DeckPageAsync } from '@/pages/deck/deck-page.async.tsx'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -37,7 +37,7 @@ const privateRoutes: RouteObject[] = [
         path: '/:deckId',
       },
     ],
-    element: <DeckPage />,
+    element: <DeckPageAsync />,
     path: '/:deckId',
   },
 ]

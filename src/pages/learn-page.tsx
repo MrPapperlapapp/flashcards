@@ -52,7 +52,6 @@ export const LearnPage = ({ className }: learnProps) => {
   // const isLoading = true
 
   useEffect(() => {
-    console.log('height: ', divRef?.current?.offsetHeight)
     divRef?.current?.offsetHeight && setDivHeight(divRef?.current?.offsetHeight)
   }, [isLoading])
 

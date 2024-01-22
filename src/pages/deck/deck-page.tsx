@@ -2,9 +2,9 @@ import { useTranslation } from 'react-i18next'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 
 import { Loading, Typography } from '@/components'
-import { useGetCardsQuery, useGetDeckQuery } from '@/entity/deck/api/deck.api'
+import { useGetCardsQuery, useGetDeckQuery } from '@/entity/deck/api/deck.api.ts'
 
-import s from './deck.module.scss'
+import s from './deck-page.module.scss'
 
 export const DeckPage = () => {
   const { deckId } = useParams()
