@@ -59,7 +59,11 @@ export const Trow = ({ data, updateDeck, deleteDeck }: PropsType) => {
         <td className={s.updated}>{data.updated}</td>
         <td className={s.createdby}>{data.author.name}</td>
         <td>
-          <button className={s.icon} disabled={data.cardsCount === 0}>
+          <button
+            className={s.icon}
+            disabled={data.cardsCount === 0}
+            onClick={() => navigate(`${data?.id}/learn`)}
+          >
             <LearnIcon />
           </button>
           <button className={s.icon} disabled={data.author.id !== me?.id}>
