@@ -10,6 +10,7 @@ import { AnswerForm, AnswerFormData } from '@/entity/learn/ui/answer-form'
 import clsx from 'clsx'
 
 import s from './learn-page.module.scss'
+import { useImageLoaded } from '@/utils/useImageLoaded/useImageLoaded.ts'
 
 type learnProps = {
   className?: string
@@ -17,6 +18,7 @@ type learnProps = {
 
 export const LearnPage = ({ className }: learnProps) => {
   const divRef = useRef<HTMLDivElement>(null)
+  const { ref, loaded, onLoad } = useImageLoaded()
   const [divHeight, setDivHeight] = useState<number>(0)
   const { t } = useTranslation('learn')
   const [isShowAnswer, setIsShowAnswer] = useState(false)
@@ -30,7 +32,6 @@ export const LearnPage = ({ className }: learnProps) => {
     id: deckId,
   })
   const [editGrade, { isLoading: isLoadingEditGrade }] = useEditGradeMutation()
-
   const question = questionData
   const classNames = {
     attempts: s.attempts,
@@ -45,9 +46,12 @@ export const LearnPage = ({ className }: learnProps) => {
     setIsShowAnswer(true)
   }
   const onClickShowNextQuestion = (data: AnswerFormData) => {
-    setIsShowAnswer(false)
-    editGrade({ cardId: question?.id!, deckId: deckId!, grade: +data.grade })
+    editGrade({ cardId: question?.id!, deckId: deckId!, grade: +data.grade }).finally(() =>
+      setIsShowAnswer(false)
+    )
   }
+
+  console.log('loaded', loaded)
   const isLoading = isLoadingEditGrade || isFetchingGetQuestion || isQuestionLoading
   // const isLoading = true
 
@@ -78,7 +82,12 @@ export const LearnPage = ({ className }: learnProps) => {
               </Typography>
               {question?.questionImg && (
                 <div className={classNames.questionImg}>
-                  <img alt={'Question Image'} src={question?.questionImg} />
+                  <img
+                    alt={'Question Image'}
+                    src={question?.questionImg}
+                    ref={ref}
+                    onLoad={onLoad}
+                  />
                 </div>
               )}
               <Typography className={classNames.attempts} variant={'subtitle2'}>
