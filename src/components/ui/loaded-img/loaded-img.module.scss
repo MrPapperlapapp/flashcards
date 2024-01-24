@@ -1,0 +1,24 @@
+.wrapper {
+  position: relative;
+
+  & img {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+  }
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+
+  background: dimgrey;
+  filter: blur(5px);
+
+  transition: 0.5s filter linear;
+}

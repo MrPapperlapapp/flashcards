@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useOutletContext, useParams } from 'react-router-dom'
 
@@ -10,7 +10,7 @@ import { AnswerForm, AnswerFormData } from '@/entity/learn/ui/answer-form'
 import clsx from 'clsx'
 
 import s from './learn-page.module.scss'
-import { useImageLoaded } from '@/utils/useImageLoaded/useImageLoaded.ts'
+import { LoadedImg } from '@/components/ui/loaded-img/loaded-img'
 
 type learnProps = {
   className?: string
@@ -18,8 +18,7 @@ type learnProps = {
 
 export const LearnPage = ({ className }: learnProps) => {
   const divRef = useRef<HTMLDivElement>(null)
-  const { ref, loaded, onLoad } = useImageLoaded()
-  const [divHeight, setDivHeight] = useState<number>(0)
+  const [divHeight, setDivHeight] = useState<number | undefined>(undefined)
   const { t } = useTranslation('learn')
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const { deckId } = useParams()
@@ -31,8 +30,8 @@ export const LearnPage = ({ className }: learnProps) => {
   } = useGetQuestionQuery({
     id: deckId,
   })
-  const [editGrade, { isLoading: isLoadingEditGrade }] = useEditGradeMutation()
-  const question = questionData
+  const [editGrade, { isLoading: isLoadingEditGrade, data }] = useEditGradeMutation()
+  const question = data ?? questionData
   const classNames = {
     attempts: s.attempts,
     cards: s.cards,
@@ -42,27 +41,30 @@ export const LearnPage = ({ className }: learnProps) => {
     text: s.text,
     title: s.title,
   }
-  const onClickShowAnswer = () => {
+  const onClickShowAnswer = useCallback(() => {
     setIsShowAnswer(true)
-  }
+  }, [])
+
   const onClickShowNextQuestion = (data: AnswerFormData) => {
     editGrade({ cardId: question?.id!, deckId: deckId!, grade: +data.grade }).finally(() =>
       setIsShowAnswer(false)
     )
   }
 
-  console.log('loaded', loaded)
   const isLoading = isLoadingEditGrade || isFetchingGetQuestion || isQuestionLoading
   // const isLoading = true
 
   useEffect(() => {
     divRef?.current?.offsetHeight && setDivHeight(divRef?.current?.offsetHeight)
-  }, [isLoading])
+    return () => setDivHeight(undefined)
+  }, [])
+
+  console.log('answer Img', question?.answerImg)
 
   if (isLoading) {
     return (
       <div className={classNames.root}>
-        <Cards as={'div'} className={classNames.cards} style={{ height: divHeight }}>
+        <Cards as={'div'} className={classNames.cards} style={{ height: divHeight ?? '100%' }}>
           <Loading />
         </Cards>
       </div>
@@ -81,14 +83,11 @@ export const LearnPage = ({ className }: learnProps) => {
                 {`${t('Question')}: ${question?.question}`}
               </Typography>
               {question?.questionImg && (
-                <div className={classNames.questionImg}>
-                  <img
-                    alt={'Question Image'}
-                    src={question?.questionImg}
-                    ref={ref}
-                    onLoad={onLoad}
-                  />
-                </div>
+                <LoadedImg
+                  src={question?.questionImg}
+                  alt={'Question Image'}
+                  className={classNames.questionImg}
+                />
               )}
               <Typography className={classNames.attempts} variant={'subtitle2'}>
                 {`${t('Count of attempts')}: 10`}

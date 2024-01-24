@@ -7,6 +7,9 @@ import clsx from 'clsx'
 
 import s from './answer-form.module.scss'
 
+import { memo } from 'react'
+import { LoadedImg } from '@/components/ui/loaded-img/loaded-img.tsx'
+
 type AnswerProps = {
   answer?: string
   answerImg?: string
@@ -15,7 +18,7 @@ type AnswerProps = {
 export type AnswerFormData = {
   grade: string
 }
-export const AnswerForm = ({ answer, answerImg, onNext }: AnswerProps) => {
+export const AnswerForm = memo(({ answer, answerImg, onNext }: AnswerProps) => {
   const { t } = useTranslation('answer')
   const classNames = {
     root: clsx(s.root),
@@ -43,16 +46,13 @@ export const AnswerForm = ({ answer, answerImg, onNext }: AnswerProps) => {
     },
   ]
   const { control, handleSubmit } = useForm({ defaultValues: { grade: '2' } })
-
   return (
     <form className={classNames.root} onSubmit={handleSubmit(onNext)}>
       <div className={'answer'}>
         <Typography variant={'subtitle1'}>{t('Answer')}: </Typography>
         {answer && <Typography variant={'subtitle1'}>{answer}</Typography>}
         {answerImg && (
-          <div className={s.answerImg}>
-            <img alt={'Answer Image'} src={answerImg} />
-          </div>
+          <LoadedImg src={answerImg} alt={'Answer Image'} className={s.answerImg} lazy />
         )}
       </div>
       <ControledRadioGroup
@@ -66,4 +66,4 @@ export const AnswerForm = ({ answer, answerImg, onNext }: AnswerProps) => {
       </Button>
     </form>
   )
-}
+})

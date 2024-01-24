@@ -4,7 +4,7 @@ import { LearnResponse } from '@/entity/learn/api/learn.types'
 const learnApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     editGrade: builder.mutation<any, { cardId: string; deckId: string; grade: number }>({
-      invalidatesTags: (_result, _errors, { cardId }) => [{ id: cardId, type: 'Cards' as const }],
+      // invalidatesTags: (_result, _errors, { cardId }) => [{ id: cardId, type: 'Cards' as const }],
       onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
         try {
           const { data: newCard } = await queryFulfilled
