@@ -60,10 +60,13 @@ export const AnswerForm = memo(({ answer, answerImg, onNext }: AnswerProps) => {
         name={'grade'}
         options={OPTIONS}
         title={t('Rate youself')}
+        className={s.radio__group}
       />
-      <Button fullWidth variant={'primary'}>
-        {t('Next Question')}
-      </Button>
+      <div className={s.button}>
+        <Button fullWidth variant={'primary'}>
+          {t('Next Question')}
+        </Button>
+      </div>
     </form>
   )
 })

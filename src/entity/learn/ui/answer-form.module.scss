@@ -1,3 +1,22 @@
-.answerImg {
-  padding: 0 0 58%;
+.root {
+  .answerImg {
+    padding: 0 0 58%;
+  }
+
+  .radio__group {
+    margin-bottom: 40px;
+  }
+
+  .button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    padding: 20px 36px;
+
+    background: var(--color-dark-700);
+    border: 1px solid var(--color-dark-500);
+    border-top: none;
+  }
 }

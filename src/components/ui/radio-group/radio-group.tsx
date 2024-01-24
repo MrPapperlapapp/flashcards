@@ -2,19 +2,27 @@ import { Typography } from '@/components'
 import * as RadixRadioGroup from '@radix-ui/react-radio-group'
 
 import s from './radio-group.module.scss'
+import { clsx } from 'clsx'
 
 export type RadioGroupProps = {
   onChangeValue: (value: string) => void
   options: RadioGroupItemProps[]
   title?: string
   value: string
+  className?: string
 }
 
-export const RadioGroup = ({ onChangeValue, options, title, value }: RadioGroupProps) => {
+export const RadioGroup = ({
+  onChangeValue,
+  options,
+  title,
+  value,
+  className,
+}: RadioGroupProps) => {
   return (
     <RadixRadioGroup.Root
       aria-label={'View density'}
-      className={s.root}
+      className={clsx(s.root, className)}
       onValueChange={onChangeValue}
       value={value}
     >
