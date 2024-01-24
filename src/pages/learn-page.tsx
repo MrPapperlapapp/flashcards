@@ -18,7 +18,6 @@ type learnProps = {
 
 export const LearnPage = ({ className }: learnProps) => {
   const divRef = useRef<HTMLDivElement>(null)
-  const [divHeight, setDivHeight] = useState<number | undefined>(undefined)
   const { t } = useTranslation('learn')
   const [isShowAnswer, setIsShowAnswer] = useState(false)
   const { deckId } = useParams()
@@ -54,17 +53,10 @@ export const LearnPage = ({ className }: learnProps) => {
   const isLoading = isLoadingEditGrade || isFetchingGetQuestion || isQuestionLoading
   // const isLoading = true
 
-  useEffect(() => {
-    divRef?.current?.offsetHeight && setDivHeight(divRef?.current?.offsetHeight)
-    return () => setDivHeight(undefined)
-  }, [])
-
-  console.log('answer Img', question?.answerImg)
-
   if (isLoading) {
     return (
       <div className={classNames.root}>
-        <Cards as={'div'} className={classNames.cards} style={{ height: divHeight ?? '100%' }}>
+        <Cards as={'div'} className={classNames.cards} style={{ height: '260px' }}>
           <Loading />
         </Cards>
       </div>
