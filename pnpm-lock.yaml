@@ -80,6 +80,9 @@ dependencies:
   ts-node-dev:
     specifier: ^2.0.0
     version: 2.0.0(@types/node@20.8.10)(typescript@5.2.2)
+  use-query-params:
+    specifier: ^2.2.1
+    version: 2.2.1(react-dom@18.2.0)(react-router-dom@6.19.0)(react@18.2.0)
   zod:
     specifier: ^3.22.4
     version: 3.22.4
@@ -10213,6 +10216,10 @@ packages:
       - supports-color
     dev: true
 
+  /serialize-query-params@2.0.2:
+    resolution: {integrity: sha512-1chMo1dST4pFA9RDXAtF0Rbjaut4is7bzFbI1Z26IuMub68pNCILku85aYmeFhvnY//BXUPUhoRMjYcsT93J/Q==}
+    dev: false
+
   /serve-static@1.15.0:
     resolution: {integrity: sha512-XGuRDNjXUijsUL0vl6nSD7cwURuzEgglbOaFuZM9g3kwDXOWVTck0jLzjPzGD+TazWbboZYu52/9/XPdUgne9g==}
     engines: {node: '>= 0.8.0'}
@@ -11304,6 +11311,25 @@ packages:
       dequal: 2.0.3
       react: 18.2.0
     dev: true
+
+  /use-query-params@2.2.1(react-dom@18.2.0)(react-router-dom@6.19.0)(react@18.2.0):
+    resolution: {integrity: sha512-i6alcyLB8w9i3ZK3caNftdb+UnbfBRNPDnc89CNQWkGRmDrm/gfydHvMBfVsQJRq3NoHOM2dt/ceBWG2397v1Q==}
+    peerDependencies:
+      '@reach/router': ^1.2.1
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      react-router-dom: '>=5'
+    peerDependenciesMeta:
+      '@reach/router':
+        optional: true
+      react-router-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-router-dom: 6.19.0(react-dom@18.2.0)(react@18.2.0)
+      serialize-query-params: 2.0.2
+    dev: false
 
   /use-resize-observer@9.1.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-R25VqO9Wb3asSD4eqtcxk8sJalvIOYBqS8MNZlpDSQ4l4xMQxC/J7Id9HoTqPq8FwULIn0PVW+OAqF2dyYbjow==}

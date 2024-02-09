@@ -1,20 +1,17 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAppDispatch, useAppSelector } from '@/app/store'
+import { useAppSelector } from '@/app/store'
 import { CloseIcon } from '@/assets/icons/close-icon'
 import { Button, Modal, Slider, Tabs, TabsType, TextField, Typography } from '@/components'
 import { useGetMeQuery } from '@/entity/auth/api/auth.api'
 import { useCreateDecksMutation } from '@/entity/decks/api'
-import {
-  getMaxCardsCount,
-  setAuthorId,
-  setSearchByName,
-  setSliderValue,
-} from '@/entity/decks/models'
+import { getMaxCardsCount } from '@/entity/decks/models'
 import { AddEditDeckForm } from '@/entity/decks/ui'
 
 import s from './decks-filters.module.scss'
+
+import { useNavigate } from 'react-router-dom'
 
 export const DecksFilters = ({
   authorId,
@@ -26,14 +23,12 @@ export const DecksFilters = ({
   sliderValue,
 }: PropsType) => {
   const [openModal, setOpenModal] = useState(false)
-
+  const navigate = useNavigate()
   const { data } = useGetMeQuery()
   const [createDeck] = useCreateDecksMutation()
   const userId = data?.id || ''
 
   const { t } = useTranslation('decks')
-
-  const dispatch = useAppDispatch()
 
   const cardsCount = useAppSelector(getMaxCardsCount)
   const onSubmit = (data: FormData) => {
@@ -46,9 +41,10 @@ export const DecksFilters = ({
     { title: t('All cards'), value: '' },
   ]
   const onClickClearFilters = () => {
-    dispatch(setSearchByName(''))
-    dispatch(setSliderValue([0, maxCardsCount || 1]))
-    dispatch(setAuthorId(''))
+    // dispatch(setSearchByName(''))
+    // dispatch(setSliderValue([0, maxCardsCount || 1]))
+    // dispatch(setAuthorId(''))
+    navigate('/')
   }
 
   return (
@@ -74,13 +70,13 @@ export const DecksFilters = ({
           onClearValue={() => setSearchByNameHandler('')}
           onValueChange={setSearchByNameHandler}
           type={'search'}
-          value={name}
+          value={name || ''}
         />
         <Tabs
           label={t('Show packs cards')}
           onValueChange={setAuthorIdHandler}
           tabs={tabs}
-          value={authorId}
+          value={authorId || ''}
         />
         <Slider
           label={t('Number of cards')}
@@ -97,11 +93,11 @@ export const DecksFilters = ({
 }
 
 type PropsType = {
-  authorId: string
+  authorId?: string | null
   maxCardsCount?: number
-  name: string
+  name?: string | null
   setAuthorIdHandler: (id: string) => void
   setSearchByNameHandler: (name: string) => void
   setSliderValueHandler: (value: [number, number]) => void
-  sliderValue: [number, number] | undefined
+  sliderValue: (number | null)[] | undefined | null
 }

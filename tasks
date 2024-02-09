@@ -2,7 +2,7 @@ react hook form + zod !!!!!!!!!!!!!!!!
 отработать с типизацией undefined
 auth-true и править вёрску deck + ошибки.
 
-cotroledCheckbox - клик не работает
+cotroledCheckbox - 1й клик не работает
 
 Loading - нужно чтобы правильно загружался.
 
@@ -19,3 +19,5 @@ taskPagination
 editform min 3 chars
 
 isLoading cards
+
+Что-то нужно сделать с несуществующими страницами(searchparams)?

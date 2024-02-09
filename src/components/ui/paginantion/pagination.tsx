@@ -32,7 +32,7 @@ export const Pagination = ({
     item: (selected: boolean = false) => clsx(s.item, selected && s.current),
     nextPrevButtons: s.nextPrevButtons,
   }
-
+  if (currentPage > totalCount / countPerPage) return <div></div>
   return (
     <div className={classNames.container}>
       <button

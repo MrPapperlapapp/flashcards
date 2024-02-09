@@ -46,6 +46,9 @@ export const DecksTable = ({ children, data, isLoading }: PropsType) => {
           )}
         </tbody>
       </table>
+      {!isLoading && !data?.length && (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>Nothing...</div>
+      )}
     </>
   )
 }

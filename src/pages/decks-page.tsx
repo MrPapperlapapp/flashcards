@@ -1,21 +1,12 @@
 import { useMemo } from 'react'
-
-import { useAppDispatch, useAppSelector } from '@/app/store'
 import { Pagination, Thead } from '@/components'
 import { useGetDecksQuery } from '@/entity/decks/api'
-import {
-  currentPageSelector,
-  itemsPerPageSelector,
-  setCurrentPage,
-  setItemsPerPage,
-  useDecksFilters,
-} from '@/entity/decks/models'
+import { useDecksFilters } from '@/entity/decks/models'
 import { DecksFilters } from '@/entity/decks/ui'
 import { DecksTable } from '@/entity/decks/ui/decks-table/decks-table'
+import { NumberParam, useQueryParam } from 'use-query-params'
 
 export const DecksPage = () => {
-  const dispatch = useAppDispatch()
-
   const {
     authorId,
     maxCardCount,
@@ -28,8 +19,9 @@ export const DecksPage = () => {
     slidersValue,
   } = useDecksFilters()
 
-  const currentPage = useAppSelector(currentPageSelector)
-  const itemsPerPage = useAppSelector(itemsPerPageSelector)
+  const [currentPage, setCurrentPage] = useQueryParam('page', NumberParam)
+  const [itemsPerPage, setItemsPerPage] = useQueryParam('items', NumberParam)
+
   const sortedString = useMemo(() => {
     if (!orderBy) {
       return undefined
@@ -47,8 +39,9 @@ export const DecksPage = () => {
     name,
     orderBy: sortedString,
   })
-  const onClickChangeCurrentPageHandler = (page: number) => dispatch(setCurrentPage(page))
-  const onClickChangeItemsPerPage = (value: string) => dispatch(setItemsPerPage(+value))
+  const onClickChangeCurrentPageHandler = (page: number) => setCurrentPage(page)
+  const onClickChangeItemsPerPage = (value: string) => setItemsPerPage(+value)
+
   return (
     <>
       <DecksFilters
@@ -64,8 +57,8 @@ export const DecksPage = () => {
         <Thead columns={columns} onSort={setOrderByHandler} sort={orderBy} />
       </DecksTable>
       <Pagination
-        countPerPage={itemsPerPage}
-        currentPage={currentPage}
+        countPerPage={itemsPerPage || 10}
+        currentPage={currentPage || 1}
         onChangeCurrentPage={onClickChangeCurrentPageHandler}
         totalCount={decks?.pagination?.totalItems || 1}
         onChangeItemsPerPage={onClickChangeItemsPerPage}

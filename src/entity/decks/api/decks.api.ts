@@ -9,6 +9,7 @@ import {
 } from '@/entity/decks/api/decks.types'
 import { setMaxCardsCount } from '@/entity/decks/models'
 
+
 export const decksAPI = baseApi.injectEndpoints({
   endpoints: builder => ({
     createDecks: builder.mutation<Deck, FormData>({

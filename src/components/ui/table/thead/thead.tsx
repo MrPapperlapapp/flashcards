@@ -11,6 +11,7 @@ export const Thead = ({ columns, onSort, sort, ...rest }: PropsType) => {
   const handleSort =
     (key: string, sortable: boolean = false) =>
     () => {
+      console.log(key, sortable)
       if (!onSort || !sortable) {
         return
       }
@@ -73,7 +74,7 @@ type PropsType = Omit<
   ComponentPropsWithoutRef<'thead'> & {
     columns: Column[]
     onSort?: (sort: Sort) => void
-    sort?: Sort
+    sort?: Partial<Sort>
   },
   'children'
 >
